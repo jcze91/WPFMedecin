@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FirstFloor.ModernUI.Presentation;
+using FirstFloor.ModernUI.Windows.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +18,12 @@ namespace mouham_cWpfMedecin.View
     /// <summary>
     /// Logique d'interaction pour HomeView.xaml
     /// </summary>
-    public partial class PortalView : Window
+    public partial class PortalView
     {
         public PortalView()
         {
             InitializeComponent();
+            AppearanceManager.Current.AccentColor = Colors.DodgerBlue;
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Windows.Input;
 using mouham_cWpfMedecin.View;
 using System.ComponentModel;
 using mouham_cWpfMedecin.UserServiceReference;
+using System.Windows.Controls;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
@@ -18,19 +19,6 @@ namespace mouham_cWpfMedecin.ViewModel
         private bool _closeTrigger;
         private BackgroundWorker _connectWorker;
         private ServiceUserClient _serviceUserClient;
-
-        public string Password
-        {
-            get { return _password; }
-            set
-            {
-                if (_password != value)
-                {
-                    _password = value;
-                    OnPropertyChanged("Password");
-                }
-            }
-        }
 
         public string Login
         {
@@ -74,8 +62,13 @@ namespace mouham_cWpfMedecin.ViewModel
         private void Init()
         {
             this.Login = "";
-            this.Password = "";
-            _loginCommand = new RelayCommand(c => _connectWorker.RunWorkerAsync(), c => true);
+            _loginCommand = new RelayCommand(c => 
+                {
+                    var passwordBox = c as PasswordBox;
+                    var password = passwordBox.Password;
+                    _password = password;
+                    _connectWorker.RunWorkerAsync();
+                }, c => true);
 
             _serviceUserClient = new ServiceUserClient();
             _connectWorker = new BackgroundWorker();
@@ -83,7 +76,7 @@ namespace mouham_cWpfMedecin.ViewModel
             {
                 try
                 {
-                    e.Result = _serviceUserClient.Connect(Login, Password);
+                    e.Result = _serviceUserClient.Connect(Login, _password);
                 }
                 catch (Exception ex)
                 { }
