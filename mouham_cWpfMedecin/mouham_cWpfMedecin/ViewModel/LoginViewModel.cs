@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using mouham_cWpfMedecin.View;
-using System.ComponentModel;
 using mouham_cWpfMedecin.UserServiceReference;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
@@ -16,9 +15,9 @@ namespace mouham_cWpfMedecin.ViewModel
     public class LoginViewModel : ViewModelBase
     {
         private string _login;
-        private string _password;
+        private bool _isConnecting;
         private bool _closeTrigger;
-        private BackgroundWorker _connectWorker;
+        private string _errorText;
         private ServiceUserClient _serviceUserClient;
 
         public string Login
@@ -34,7 +33,26 @@ namespace mouham_cWpfMedecin.ViewModel
 
             }
         }
-
+        public bool IsLoginButtonVisible
+        {
+            get { return !_isConnecting; }
+        }
+        public bool IsProgressRingActive
+        {
+            get { return _isConnecting; }
+        }
+        public string ErrorText
+        {
+            get { return _errorText; }
+            set
+            {
+                if (_errorText != value)
+                {
+                    _errorText = value;
+                    RaisePropertyChanged("ErrorText");
+                }
+            }
+        }
         public bool CloseTrigger
         {
             get { return _closeTrigger; }
@@ -58,31 +76,21 @@ namespace mouham_cWpfMedecin.ViewModel
         private void Init()
         {
             this.Login = "";
-            LoginCommand = new RelayCommand<Object>(c => 
+            this.ErrorText = "";
+            _serviceUserClient = new ServiceUserClient();
+            _isConnecting = false;
+
+            LoginCommand = new RelayCommand<Object>(async c => 
                 {
+                    this.ErrorText = "";
+                    _isConnecting = true;
+                    RaisePropertyChanged("IsLoginButtonVisible");
+                    RaisePropertyChanged("IsProgressRingActive");
+
                     var passwordBox = c as PasswordBox;
                     var password = passwordBox.Password;
-                    _password = password;
-                    _connectWorker.RunWorkerAsync();
-                }, c => true);
-
-            _serviceUserClient = new ServiceUserClient();
-            _connectWorker = new BackgroundWorker();
-            _connectWorker.DoWork += new DoWorkEventHandler((s, e) =>
-            {
-                try
-                {
-                    e.Result = _serviceUserClient.Connect(Login, _password);
-                }
-                catch (Exception ex)
-                { }
-            });
-            _connectWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler((s, e) =>
-            {
-                try
-                {
-                    bool success = (bool)e.Result;
-                    if (success)
+                 
+                    if (await _serviceUserClient.ConnectAsync(Login, password))
                     {
                         PortalView view = new PortalView();
                         PortalViewModel viewModel = new PortalViewModel();
@@ -92,12 +100,12 @@ namespace mouham_cWpfMedecin.ViewModel
                     }
                     else
                     {
-                        // TODO gestion erreur
+                        _isConnecting = false;
+                        this.ErrorText = "Error. Retry to connect...";
+                        RaisePropertyChanged("IsLoginButtonVisible");
+                        RaisePropertyChanged("IsProgressRingActive");
                     }
-                }
-                catch (Exception ex)
-                { }
-            });
+                }, c => true);
         }
     }
 }

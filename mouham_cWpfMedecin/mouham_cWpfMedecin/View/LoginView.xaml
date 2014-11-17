@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
+            <RowDefinition Height="0.8*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Welcome in WPF Médecin" Margin="8,0" FontFamily="Segoe UI Light" VerticalAlignment="Center" FontSize="20" FontWeight="Normal"  />
@@ -31,15 +32,20 @@
             <PasswordBox Width="150" Name="pwd" Grid.Row="1" Grid.Column="1"  Height="20" />
 
         </Grid>
-        
-        <Button  Content="Log in" Width="100" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="28">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Click">
-                    <i:InvokeCommandAction Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pwd}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Button>
+        <TextBlock FontFamily="Segoe UI Light" Text="{Binding ErrorText}" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFDA1F1F" />
 
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+            <Button Content="Log in" Width="100" Height="28" Visibility="{Binding IsLoginButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pwd}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <mui:ModernProgressRing IsActive="{Binding IsProgressRingActive}" x:Name="progressRing" Margin="22,0,0,0"  />
+
+        </StackPanel>
+       
         <Grid.Style>
             <Style>
                 <Style.Triggers>
