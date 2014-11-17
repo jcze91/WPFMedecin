@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using mouham_cWpfMedecin.View;
 using System.ComponentModel;
+using GalaSoft.MvvmLight;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
-    public class PortalViewModel : BaseViewModel
+    public class PortalViewModel : ViewModelBase
     {
    
     }

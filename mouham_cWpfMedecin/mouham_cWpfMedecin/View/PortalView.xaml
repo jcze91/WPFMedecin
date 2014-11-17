@@ -4,10 +4,12 @@
         xmlns:local="clr-namespace:mouham_cWpfMedecin"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         Title="PortalView" Height="427" Width="1029">
-    <Window.Resources>
-    </Window.Resources>
-    
-    
-    <Grid>
-    </Grid>
+    <mui:ModernWindow.MenuLinkGroups>
+        <mui:LinkGroup DisplayName="WPF Médecin">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Utilisateurs" Source="/View/UsersControl.xaml" />
+                <mui:Link DisplayName="Patients" Source="/View/PatientsControl.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+    </mui:ModernWindow.MenuLinkGroups>
 </mui:ModernWindow>

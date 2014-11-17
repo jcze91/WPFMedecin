@@ -8,14 +8,15 @@ using mouham_cWpfMedecin.View;
 using System.ComponentModel;
 using mouham_cWpfMedecin.UserServiceReference;
 using System.Windows.Controls;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
-    public class LoginViewModel : BaseViewModel
+    public class LoginViewModel : ViewModelBase
     {
         private string _login;
         private string _password;
-        private RelayCommand _loginCommand;
         private bool _closeTrigger;
         private BackgroundWorker _connectWorker;
         private ServiceUserClient _serviceUserClient;
@@ -28,7 +29,7 @@ namespace mouham_cWpfMedecin.ViewModel
                 if (_login != value)
                 {
                     _login = value;
-                    OnPropertyChanged("Login");
+                    RaisePropertyChanged("Login");
                 }
 
             }
@@ -42,17 +43,12 @@ namespace mouham_cWpfMedecin.ViewModel
                 if (_closeTrigger != value)
                 {
                     _closeTrigger = value;
-                    OnPropertyChanged("CloseTrigger");
+                    RaisePropertyChanged("CloseTrigger");
                 }
             }
         }
 
-        public RelayCommand LoginCommand
-        {
-            get { return _loginCommand; }
-            set { _loginCommand = value; }
-        }
-
+        public ICommand LoginCommand { get;  set; }
 
         public LoginViewModel()
         {
@@ -62,7 +58,7 @@ namespace mouham_cWpfMedecin.ViewModel
         private void Init()
         {
             this.Login = "";
-            _loginCommand = new RelayCommand(c => 
+            LoginCommand = new RelayCommand<Object>(c => 
                 {
                     var passwordBox = c as PasswordBox;
                     var password = passwordBox.Password;

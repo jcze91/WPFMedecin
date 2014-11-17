@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:behaviours="clr-namespace:mouham_cWpfMedecin"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         Height="200" Width="300" ResizeMode="NoResize"
-        Style="{StaticResource BlankWindow}">
+        Style="{StaticResource BlankWindow}"
+        DataContext="{Binding Login, Source={StaticResource Locator}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -26,7 +28,13 @@
             <PasswordBox Width="150" Name="pwd" Grid.Row="1" Grid.Column="1"  Height="20" />
 
         </Grid>
-        <mui:ModernButton  Content="Log in" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pwd}" Width="100" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="28" IconData="F1 M 42.3542,38L 26.5208,53.8333L 37.2083,53.8333L 53.8333,38L 37.2083,22.1667L 26.5208,22.1667L 42.3542,38 Z "/>
+        <Button  Content="Log in" Width="100" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="28">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:InvokeCommandAction Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pwd}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
 
         <Grid.Style>
             <Style>

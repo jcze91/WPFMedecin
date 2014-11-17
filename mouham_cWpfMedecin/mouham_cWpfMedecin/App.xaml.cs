@@ -15,14 +15,5 @@ namespace mouham_cWpfMedecin
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-
-            LoginView window = new LoginView();
-            LoginViewModel vm = new LoginViewModel();
-            window.DataContext = vm;
-            window.Show();
-        }
     }
 }

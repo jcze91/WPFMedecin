@@ -1,0 +1,29 @@
+﻿<controls:ModernUserControl x:Class="mouham_cWpfMedecin.View.PatientsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:mouham_cWpfMedecin.Controls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d" 
+             DataContext="{Binding Patients, Source={StaticResource Locator}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" 
+                Name="dataGridUsers" 
+                DataContext="{Binding Patients}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Firstname}" Header="Prénom" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Nom" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Birthday}" Header="Date de naissance" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</controls:ModernUserControl>
