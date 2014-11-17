@@ -15,6 +15,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using mouham_cWpfMedecin.Services;
+using System;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
@@ -24,6 +26,11 @@ namespace mouham_cWpfMedecin.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        /// <summary>
+        /// The resource page key.
+        /// </summary>
+        public const string ObservationsPageKey = "ObservationsView";
+
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
@@ -36,6 +43,10 @@ namespace mouham_cWpfMedecin.ViewModel
             SimpleIoc.Default.Register<PatientsViewModel>();
             SimpleIoc.Default.Register<UsersViewModel>();
 
+            var navigationService = new ModernNavigationService();
+            navigationService.Configure(ViewModelLocator.ObservationsPageKey, new Uri("View/ObservationsControl.xaml", UriKind.Relative));
+
+            SimpleIoc.Default.Register<IModernNavigationService>(() => navigationService);
         }
 
         public LoginViewModel Login

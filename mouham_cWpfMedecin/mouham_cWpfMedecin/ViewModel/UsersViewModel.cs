@@ -29,13 +29,21 @@ namespace mouham_cWpfMedecin.ViewModel
 
         public UsersViewModel()
         {
-            LoadedCommand = new RelayCommand(LoadData);
-            _serviceUserClient = new UserServiceReference.ServiceUserClient();
+            try
+            {
+                LoadedCommand = new RelayCommand(LoadData);
+                _serviceUserClient = new UserServiceReference.ServiceUserClient();
+            }
+            catch { }
         }
 
         private async void LoadData()
         {
-            Users = new ObservableCollection<UserServiceReference.User>(await _serviceUserClient.GetListUserAsync());
+            try
+            {
+                Users = new ObservableCollection<UserServiceReference.User>(await _serviceUserClient.GetListUserAsync());
+            }
+            catch { }
         }
 
     }

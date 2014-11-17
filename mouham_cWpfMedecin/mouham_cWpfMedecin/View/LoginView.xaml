@@ -9,10 +9,13 @@
         DataContext="{Binding Login, Source={StaticResource Locator}}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Grid>
+        <TextBlock Text="Welcome in WPF Médecin" Margin="8,0" FontFamily="Segoe UI Light" VerticalAlignment="Center" FontSize="20" FontWeight="Normal"  />
+
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -21,14 +24,15 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Username:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <TextBlock FontFamily="Segoe UI Light" Text="Username:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
             <TextBox Width="150"  Text="{Binding Login, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" Height="20" Padding="0" />
 
-            <TextBlock Text="Password:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock FontFamily="Segoe UI Light" Text="Password:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <PasswordBox Width="150" Name="pwd" Grid.Row="1" Grid.Column="1"  Height="20" />
 
         </Grid>
-        <Button  Content="Log in" Width="100" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="28">
+        
+        <Button  Content="Log in" Width="100" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="28">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <i:InvokeCommandAction Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pwd}" />
