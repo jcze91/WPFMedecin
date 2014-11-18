@@ -101,7 +101,7 @@ namespace mouham_cWpfMedecin.ViewModel
                     else
                     {
                         _isConnecting = false;
-                        this.ErrorText = "Error. Retry to connect...";
+                        this.ErrorText = "Erreur. Réessayez de vous connecter...";
                         RaisePropertyChanged("IsLoginButtonVisible");
                         RaisePropertyChanged("IsProgressRingActive");
                     }

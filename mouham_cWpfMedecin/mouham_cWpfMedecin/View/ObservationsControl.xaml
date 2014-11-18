@@ -4,15 +4,84 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Patients, Source={StaticResource Locator}}">
-    <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
-            <StackPanel MinWidth="200">
-                <TextBlock Text="BASIC PAGE" Style="{StaticResource Heading2}" />
-                <TextBlock Text="Content goes here" />
-            </StackPanel>
-        </ScrollViewer>
+             d:DesignHeight="300" d:DesignWidth="500"
+             DataContext="{Binding Observations, Source={StaticResource Locator}}" Loaded="UserControl_Loaded">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="NavigatedTo">
+            <i:InvokeCommandAction Command="{Binding NavigatedToCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="NavigatedFrom">
+            <i:InvokeCommandAction Command="{Binding NavigatedFromCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="NavigatingFrom">
+            <i:InvokeCommandAction Command="{Binding NavigatingFromCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="FragmentNavigation">
+            <i:InvokeCommandAction Command="{Binding FragmentNavigationCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="IsVisibleChanged">
+            <i:InvokeCommandAction Command="{Binding IsVisibleChangedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Name="observations" AlternatingRowBackground="AliceBlue"  AutoGenerateColumns="False" 
+                              DataContext="{Binding Patient.Observations}"
+                              IsReadOnly="True" ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Date}" Header="Observations" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontFamily="Segoe UI Light" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="20" Padding="0" HorizontalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Patient: {0} {1}"> 
+                          <Binding Path="Patient.Firstname" /> 
+                          <Binding Path="Patient.Name" /> 
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <TextBlock FontFamily="Segoe UI Light" Text="Date" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock FontFamily="Segoe UI Light" Text="{Binding ElementName=observations, Path=SelectedItem.Date}" Grid.Row="1" Grid.Column="1" Height="20" Padding="0" />
+                <TextBlock FontFamily="Segoe UI Light" Text="Poids" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock FontFamily="Segoe UI Light" Text="{Binding ElementName=observations, Path=SelectedItem.Weight}" Grid.Row="2" Grid.Column="1" Height="20" Padding="0" />
+                <TextBlock FontFamily="Segoe UI Light" Text="Pression sanguine" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock FontFamily="Segoe UI Light" Text="{Binding ElementName=observations, Path=SelectedItem.BloodPressure}" Grid.Row="3" Grid.Column="1" Height="20" Padding="0" />
+
+            </Grid>
+            <TextBlock FontFamily="Segoe UI Light" Padding="10" Text="{Binding ElementName=observations, Path=SelectedItem.Comment, StringFormat='Commentaires: {0}'}" Height="78" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextTrimming="WordEllipsis" TextOptions.TextHintingMode="Animated">
+       
+            </TextBlock>
+            <DataGrid Name="prescriptions" AlternatingRowBackground="AliceBlue" AutoGenerateColumns="False" 
+                              DataContext="{Binding ElementName=observations, Path=SelectedItem.Prescription}"
+                              IsReadOnly="True" ItemsSource="{Binding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding}" Header="Prescription" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
+    <!--
+    
+-->
 </UserControl>

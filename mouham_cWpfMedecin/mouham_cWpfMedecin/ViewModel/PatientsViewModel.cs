@@ -17,7 +17,6 @@ namespace mouham_cWpfMedecin.ViewModel
         private ObservableCollection<PatientServiceReference.Patient> _patients;
         private PatientServiceReference.ServicePatientClient _servicePatientClient;
         private readonly IModernNavigationService _modernNavigationService;
-        private PatientServiceReference.Patient _selectedPatient;
 
         public ObservableCollection<PatientServiceReference.Patient> Patients
         {
@@ -31,6 +30,7 @@ namespace mouham_cWpfMedecin.ViewModel
                 }
             }
         }
+     
         public ICommand SeeObservationsCommand { get; set; }
 
         public PatientsViewModel(IModernNavigationService modernNavigationService)
@@ -40,9 +40,10 @@ namespace mouham_cWpfMedecin.ViewModel
                 _modernNavigationService = modernNavigationService;
                 LoadedCommand = new RelayCommand(LoadData);
                 _servicePatientClient = new PatientServiceReference.ServicePatientClient();
-                SeeObservationsCommand = new RelayCommand<Object>(c =>
+                SeeObservationsCommand = new RelayCommand<object>(c =>
                     {
-                        _modernNavigationService.NavigateTo(ViewModelLocator.ObservationsPageKey);
+                        PatientServiceReference.Patient p = c as PatientServiceReference.Patient;
+                        _modernNavigationService.NavigateTo(ViewModelLocator.ObservationsPageKey, p);
                     }, c => true);
             }
             catch { }
