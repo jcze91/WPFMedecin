@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
-namespace mouham_cWpfMedecin
+namespace mouham_cWpfMedecin.Helpers
 {
     /// <summary>
     /// permet de fermer une fenêtre par binding MVVM

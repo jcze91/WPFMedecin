@@ -1,111 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using mouham_cWpfMedecin.View;
-using mouham_cWpfMedecin.UserServiceReference;
-using System.Windows.Controls;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using mouham_cWpfMedecin.ServiceUser;
+using mouham_cWpfMedecin.View;
+using System.Windows.Input;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
     public class LoginViewModel : ViewModelBase
     {
-        private string _login;
-        private bool _isConnecting;
-        private bool _closeTrigger;
-        private string _errorText;
         private ServiceUserClient _serviceUserClient;
 
+        private string _login;
         public string Login
         {
             get { return _login; }
-            set
-            {
-                if (_login != value)
-                {
-                    _login = value;
-                    RaisePropertyChanged("Login");
-                }
+            set { Set(ref _login, value, "Login"); }
+        }
 
-            }
-        }
-        public bool IsLoginButtonVisible
-        {
-            get { return !_isConnecting; }
-        }
-        public bool IsProgressRingActive
+        private bool _isConnecting;
+        public bool IsConnecting
         {
             get { return _isConnecting; }
+            set { Set(ref _isConnecting, value, "IsConnecting"); }
         }
-        public string ErrorText
+
+        private string _password;
+        public string Password
         {
-            get { return _errorText; }
-            set
-            {
-                if (_errorText != value)
-                {
-                    _errorText = value;
-                    RaisePropertyChanged("ErrorText");
-                }
-            }
+            get { return _password; }
+            set { Set(ref _password, value, "Password"); }
         }
+
+        private bool _closeTrigger;
         public bool CloseTrigger
         {
             get { return _closeTrigger; }
-            set
-            {
-                if (_closeTrigger != value)
-                {
-                    _closeTrigger = value;
-                    RaisePropertyChanged("CloseTrigger");
-                }
-            }
+            set { Set(ref _closeTrigger, value, "CloseTrigger"); }
         }
 
-        public ICommand LoginCommand { get;  set; }
+        private string _errorText;
+        public string ErrorText
+        {
+            get { return _errorText; }
+            set { Set(ref _errorText, value, "ErrorText"); }
+        }
+
+        public ICommand LoginCommand { get; set; }
 
         public LoginViewModel()
         {
-            Init();
+            Login = "";
+            ErrorText = "";
+            _serviceUserClient = new ServiceUserClient();
+            IsConnecting = false;
+
+            LoginCommand = new RelayCommand(LoginExecute, CanLoginExecute);
         }
 
-        private void Init()
+        async private void LoginExecute()
         {
-            this.Login = "";
-            this.ErrorText = "";
-            _serviceUserClient = new ServiceUserClient();
-            _isConnecting = false;
+            ErrorText = "";
+            IsConnecting = true;
 
-            LoginCommand = new RelayCommand<Object>(async c => 
-                {
-                    this.ErrorText = "";
-                    _isConnecting = true;
-                    RaisePropertyChanged("IsLoginButtonVisible");
-                    RaisePropertyChanged("IsProgressRingActive");
+            if (await _serviceUserClient.ConnectAsync(Login, Password))
+            {
+                PortalView view = new PortalView();
+                //PortalViewModel viewModel = new PortalViewModel();
+                //view.DataContext = viewModel;
+                view.Show();
+                this.CloseTrigger = true;
+                IsConnecting = false;
+            }
+            else
+            {
+                ErrorText = "Erreur. Réessayez de vous connecter...";
+                IsConnecting = false;
+            }
+        }
 
-                    var passwordBox = c as PasswordBox;
-                    var password = passwordBox.Password;
-                 
-                    if (await _serviceUserClient.ConnectAsync(Login, password))
-                    {
-                        PortalView view = new PortalView();
-                        PortalViewModel viewModel = new PortalViewModel();
-                        view.DataContext = viewModel;
-                        view.Show();
-                        this.CloseTrigger = true;
-                    }
-                    else
-                    {
-                        _isConnecting = false;
-                        this.ErrorText = "Erreur. Réessayez de vous connecter...";
-                        RaisePropertyChanged("IsLoginButtonVisible");
-                        RaisePropertyChanged("IsProgressRingActive");
-                    }
-                }, c => true);
+        private bool CanLoginExecute()
+        {
+            return !IsConnecting;
         }
     }
 }
