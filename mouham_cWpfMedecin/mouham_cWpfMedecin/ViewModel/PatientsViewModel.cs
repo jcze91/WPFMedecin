@@ -32,6 +32,7 @@ namespace mouham_cWpfMedecin.ViewModel
             }
         }
         public ICommand SeeObservationsCommand { get; set; }
+        public ICommand AddPatientCommand { get; set; }
 
         public PatientsViewModel(IModernNavigationService modernNavigationService)
         {
@@ -44,6 +45,10 @@ namespace mouham_cWpfMedecin.ViewModel
                     {
                         _modernNavigationService.NavigateTo(ViewModelLocator.ObservationsPageKey);
                     }, c => true);
+                AddPatientCommand = new RelayCommand(() =>
+                {
+                    _modernNavigationService.NavigateTo(ViewModelLocator.AddPatientPageKey);
+                });
             }
             catch { }
         }

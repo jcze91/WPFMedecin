@@ -30,6 +30,9 @@ namespace mouham_cWpfMedecin.ViewModel
         /// The resource page key.
         /// </summary>
         public const string ObservationsPageKey = "ObservationsView";
+        public const string AddUserPageKey = "AddUserView";
+        public const string AddPatientPageKey = "AddPatientView";
+        public const string UserPageKey = "UserView";
 
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
@@ -42,9 +45,14 @@ namespace mouham_cWpfMedecin.ViewModel
             SimpleIoc.Default.Register<PortalViewModel>();
             SimpleIoc.Default.Register<PatientsViewModel>();
             SimpleIoc.Default.Register<UsersViewModel>();
+            SimpleIoc.Default.Register<AddUserViewModel>();
+            SimpleIoc.Default.Register<AddPatientViewModel>();
 
             var navigationService = new ModernNavigationService();
             navigationService.Configure(ViewModelLocator.ObservationsPageKey, new Uri("View/ObservationsControl.xaml", UriKind.Relative));
+            navigationService.Configure(ViewModelLocator.AddUserPageKey, new Uri("View/AddUserView.xaml", UriKind.Relative));
+            navigationService.Configure(ViewModelLocator.AddPatientPageKey, new Uri("View/AddPatientView.xaml", UriKind.Relative));
+            navigationService.Configure(ViewModelLocator.UserPageKey, new Uri("View/UsersControl.xaml", UriKind.Relative));
 
             SimpleIoc.Default.Register<IModernNavigationService>(() => navigationService);
         }
@@ -75,6 +83,20 @@ namespace mouham_cWpfMedecin.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<PatientsViewModel>();
+            }
+        }
+        public AddUserViewModel AddUser
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddUserViewModel>();
+            }
+        }
+        public AddPatientViewModel AddPatient
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddPatientViewModel>();
             }
         }
         
