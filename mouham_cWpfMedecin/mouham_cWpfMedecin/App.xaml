@@ -16,6 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True"  />
             <h:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibility"/>
+            <h:RoleToVisibilityConverter x:Key="RoleToVisibility"/>
         </ResourceDictionary>
 
 

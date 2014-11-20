@@ -13,6 +13,7 @@ namespace mouham_cWpfMedecin.ViewModel
     /// </summary>
     public abstract class ModernViewModelBase : ViewModelBase
     {
+        private string _role;
         /// <summary>
         /// Gets or sets the navigating from command.
         /// </summary>
@@ -48,5 +49,14 @@ namespace mouham_cWpfMedecin.ViewModel
         /// </summary>
         /// <value>The is visible changed command.</value>
         public ICommand IsVisibleChangedCommand { get; set; }
+
+        /// <summary>
+        /// Get or sets the role of current user.
+        /// </summary>
+        /// <value>The user role</value>
+        public string Role {
+            get { return _role; }
+            set { Set(ref _role, value, "Role"); }
+        }
     }
 }

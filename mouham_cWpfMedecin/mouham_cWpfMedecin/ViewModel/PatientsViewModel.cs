@@ -28,10 +28,11 @@ namespace mouham_cWpfMedecin.ViewModel
         public ICommand SeeObservationsCommand { get; set; }
         public ICommand AddPatientCommand { get; set; }
 
-        public PatientsViewModel(IModernNavigationService modernNavigationService)
+        public PatientsViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
         {
             try
             {
+                this.Role = sessionService.Role;
                 _modernNavigationService = modernNavigationService;
                 LoadedCommand = new RelayCommand(LoadData);
                 _servicePatientClient = new ServicePatientClient();

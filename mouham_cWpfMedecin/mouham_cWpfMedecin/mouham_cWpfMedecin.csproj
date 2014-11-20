@@ -75,6 +75,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\ModernUserControl.cs" />
+    <Compile Include="Helpers\RoleToVisibilityConverter.cs" />
     <Compile Include="Helpers\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Service References\ServiceLive\Reference.cs">
@@ -98,7 +99,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Services\IModernNavigationService.cs" />
+    <Compile Include="Services\ISessionService.cs" />
     <Compile Include="Services\ModernNavigationService.cs" />
+    <Compile Include="Services\SessionService.cs" />
     <Compile Include="ViewModel\AddPatientViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\ModernViewModelBase.cs" />

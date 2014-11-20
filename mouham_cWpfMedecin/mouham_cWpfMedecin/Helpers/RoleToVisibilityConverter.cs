@@ -8,11 +8,12 @@ using System.Windows.Data;
 
 namespace mouham_cWpfMedecin.Helpers
 {
-    class InverseBooleanToVisibilityConverter : IValueConverter
+    class RoleToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return value is bool && !(bool)value;
+            var ret = value is string && (string)value != "Infirmière" ? Visibility.Visible : Visibility.Collapsed;
+            return ret;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

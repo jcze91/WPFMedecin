@@ -52,7 +52,7 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock FontFamily="Segoe UI Light" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="20" Padding="0" HorizontalAlignment="Center">
+                <TextBlock FontFamily="Segoe UI Light" FontSize="28"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Padding="0" HorizontalAlignment="Center">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Patient: {0} {1}"> 
                           <Binding Path="Patient.Firstname" /> 

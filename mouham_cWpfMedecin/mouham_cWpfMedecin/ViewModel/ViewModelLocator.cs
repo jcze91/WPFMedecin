@@ -50,12 +50,14 @@ namespace mouham_cWpfMedecin.ViewModel
             SimpleIoc.Default.Register<ObservationsViewModel>();
 
             var navigationService = new ModernNavigationService();
+            var sessionService = new SessionService();
             navigationService.Configure(ViewModelLocator.ObservationsPageKey, new Uri("View/ObservationsControl.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.AddUserPageKey, new Uri("View/AddUserView.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.AddPatientPageKey, new Uri("View/AddPatientView.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.UserPageKey, new Uri("View/UsersControl.xaml", UriKind.Relative));
 
             SimpleIoc.Default.Register<IModernNavigationService>(() => navigationService);
+            SimpleIoc.Default.Register<ISessionService>(() => sessionService);
         }
 
         public LoginViewModel Login

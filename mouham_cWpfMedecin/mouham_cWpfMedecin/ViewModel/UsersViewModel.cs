@@ -33,10 +33,11 @@ namespace mouham_cWpfMedecin.ViewModel
 
         public ICommand AddUserCommand { get; set; }
 
-        public UsersViewModel(IModernNavigationService modernNavigationService)
+        public UsersViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
         {
             try
             {
+                this.Role = sessionService.Role;
                 _modernNavigationService = modernNavigationService;
                 LoadedCommand = new RelayCommand(LoadData);
                 AddUserCommand = new RelayCommand(() =>

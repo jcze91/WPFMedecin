@@ -27,10 +27,11 @@ namespace mouham_cWpfMedecin.ViewModel
         public ICommand AddObservationCommand { get; set; }
 
 
-        public ObservationsViewModel(IModernNavigationService modernNavigationService)
+        public ObservationsViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
         {
             try
             {
+                this.Role = sessionService.Role;
                 _modernNavigationService = modernNavigationService;
                 _serviceObservationClient = new ServiceObservationClient();
                 AddObservationCommand = new RelayCommand<Object>(c =>

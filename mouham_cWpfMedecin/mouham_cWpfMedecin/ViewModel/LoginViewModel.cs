@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using mouham_cWpfMedecin.Services;
 using mouham_cWpfMedecin.ServiceUser;
 using mouham_cWpfMedecin.View;
 using System.Windows.Input;
@@ -9,6 +10,7 @@ namespace mouham_cWpfMedecin.ViewModel
     public class LoginViewModel : ViewModelBase
     {
         private ServiceUserClient _serviceUserClient;
+        private ISessionService _sessionService;
 
         private string _login;
         public string Login
@@ -47,8 +49,9 @@ namespace mouham_cWpfMedecin.ViewModel
 
         public ICommand LoginCommand { get; set; }
 
-        public LoginViewModel()
+        public LoginViewModel(ISessionService sessionService)
         {
+            _sessionService = sessionService;
             Login = "";
             ErrorText = "";
             _serviceUserClient = new ServiceUserClient();
@@ -64,9 +67,10 @@ namespace mouham_cWpfMedecin.ViewModel
 
             if (await _serviceUserClient.ConnectAsync(Login, Password))
             {
+
+                _sessionService.RegisterSession(Login);
+                await _sessionService.FetchUserRole();
                 PortalView view = new PortalView();
-                //PortalViewModel viewModel = new PortalViewModel();
-                //view.DataContext = viewModel;
                 view.Show();
                 this.CloseTrigger = true;
                 IsConnecting = false;
