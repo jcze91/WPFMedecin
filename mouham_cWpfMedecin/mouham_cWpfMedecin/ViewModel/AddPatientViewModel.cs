@@ -18,6 +18,9 @@ namespace mouham_cWpfMedecin.ViewModel
     public class AddPatientViewModel : ModernViewModelBase
     {
         private string _name;
+        private readonly IModernNavigationService _modernNavigationService;
+        private ServicePatientClient _servicePatientClient;
+
 
         public string Name
         {
@@ -60,11 +63,9 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         public ICommand ComfirmCommand { get; set; }
-        private readonly IModernNavigationService _modernNavigationService;
-        private ServicePatientClient _servicePatientClient;
 
         /// <summary>
-        /// Initializes a new instance of the AddPatientViewModel1 class.
+        /// Initializes a new instance of the AddPatientViewModel class.
         /// </summary>
         public AddPatientViewModel(IModernNavigationService modernNavigationService)
         {

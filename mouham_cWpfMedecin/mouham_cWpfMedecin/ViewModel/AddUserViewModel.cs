@@ -104,8 +104,6 @@ namespace mouham_cWpfMedecin.ViewModel
         public ICommand ComfirmCommand { get; set; }
         public ICommand BrowseCommand { get; set; }
         private readonly IModernNavigationService _modernNavigationService;
-        private BackgroundWorker _connectWorker;
-        private ServiceUserClient _serviceUserClient;
 
         /// <summary>
         /// Initializes a new instance of the AddUserViewModel class.
@@ -159,8 +157,6 @@ namespace mouham_cWpfMedecin.ViewModel
             User user = new User();
             bool result = false;
 
-            
-
             user.Login = _login;
             user.Pwd = _pwd;
             user.Name = _name;
@@ -175,8 +171,7 @@ namespace mouham_cWpfMedecin.ViewModel
             }
             catch { }
 
-            Trace.WriteLine(result);
-            _modernNavigationService.NavigateTo(ViewModelLocator.UserPageKey);
+            _modernNavigationService.NavigateTo(ViewModelLocator.UsersPageKey);
         }
     }
 }
