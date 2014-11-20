@@ -3,24 +3,32 @@ using GalaSoft.MvvmLight.Command;
 using mouham_cWpfMedecin.Services;
 using mouham_cWpfMedecin.ServiceUser;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class UsersViewModel : ModernViewModelBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
-        private ServiceUserClient _serviceUserClient;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private IServiceUser _serviceUserClient;
 
         private ObservableCollection<User> _users;
+        /// <summary>
+        /// 
+        /// </summary>
         public ObservableCollection<User> Users
         {
             get { return _users; }
@@ -28,15 +36,30 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         private User _selectedUser;
+        /// <summary>
+        /// 
+        /// </summary>
         public User SelectedUser
         {
             get { return _selectedUser; }
             set { Set(ref _selectedUser, value, "SelectedUser"); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand AddUserCommand { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand DeleteUserCommand { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modernNavigationService"></param>
+        /// <param name="sessionService"></param>
         public UsersViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
         {
             try
@@ -54,11 +77,17 @@ namespace mouham_cWpfMedecin.ViewModel
             catch { }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         void AddUser()
         {
             _modernNavigationService.NavigateTo(ViewModelLocator.AddUserPageKey);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         async void DeleteUser()
         {
             if (SelectedUser != null)
@@ -77,6 +106,9 @@ namespace mouham_cWpfMedecin.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         async void LoadData()
         {
             try

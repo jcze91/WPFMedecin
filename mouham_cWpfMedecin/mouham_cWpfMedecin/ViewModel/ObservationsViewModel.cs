@@ -15,37 +15,65 @@ namespace mouham_cWpfMedecin.ViewModel
 {
     public class ObservationsViewModel : ModernViewModelBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
-        private Patient _patient;
-        private ServiceObservationClient _serviceObservationClient;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private IServiceObservation _serviceObservationClient;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Patient _patient;
         public Patient Patient
         {
             get { return _patient; }
             set { Set(ref _patient, value, "Patient"); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand AddObservationCommand { get; set; }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modernNavigationService"></param>
+        /// <param name="sessionService"></param>
         public ObservationsViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
         {
             try
             {
                 this.Role = sessionService.Role;
+
                 _modernNavigationService = modernNavigationService;
                 _serviceObservationClient = new ServiceObservationClient();
-                AddObservationCommand = new RelayCommand<Object>(c =>
-                    {
-                        //_modernNavigationService.NavigateTo(ViewModelLocator.AddObservationPageKey);
-                    }, c => true);
+
+                AddObservationCommand = new RelayCommand(AddObservation);
                 LoadedCommand = new RelayCommand(LoadData);
             }
             catch { }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void LoadData()
         {
             this.Patient = _modernNavigationService.Parameter as Patient;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void AddObservation()
+        {
+            throw new NotImplementedException();
         }
 
     }
