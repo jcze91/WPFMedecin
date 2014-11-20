@@ -8,7 +8,26 @@
         mc:Ignorable="d" 
         d:DesignHeight="300" d:DesignWidth="500"
         DataContext="{Binding AddPatient, Source={StaticResource Locator}}">
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="NavigatedTo">
+            <i:InvokeCommandAction Command="{Binding NavigatedToCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="NavigatedFrom">
+            <i:InvokeCommandAction Command="{Binding NavigatedFromCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="NavigatingFrom">
+            <i:InvokeCommandAction Command="{Binding NavigatingFromCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="FragmentNavigation">
+            <i:InvokeCommandAction Command="{Binding FragmentNavigationCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="IsVisibleChanged">
+            <i:InvokeCommandAction Command="{Binding IsVisibleChangedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

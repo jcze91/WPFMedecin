@@ -37,7 +37,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             get { return _login; }
             set { Set(ref _login, value, "Login"); }
-        }
+                }
 
         private string _pwd;
         /// <summary>
@@ -47,7 +47,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             get { return _pwd; }
             set { Set(ref _pwd, value, "Pwd"); }
-        }
+                }
 
         private string _name;
         /// <summary>
@@ -120,6 +120,16 @@ namespace mouham_cWpfMedecin.ViewModel
 
             ComfirmCommand = new RelayCommand(() => AddUser());
             BrowseCommand = new RelayCommand(() => SelectFile());
+            LoadedCommand = new RelayCommand(LoadData);
+        }
+        private void LoadData()
+        {
+            this.Role = "";
+            this.Firstname = "";
+            this.Name = "";
+            this.Login = "";
+            this.Pwd = "";
+            this.PictureFilename = "";
         }
 
         private void SelectFile()
@@ -142,7 +152,9 @@ namespace mouham_cWpfMedecin.ViewModel
                 //Picture = System.IO.File.ReadAllBytes(_pictureFilename);
                 StreamReader sr = new StreamReader(PictureFilename);
                 BinaryReader read = new BinaryReader(sr.BaseStream);
-                Picture = read.ReadBytes((int)sr.BaseStream.Length);
+                _picture = read.ReadBytes((int)sr.BaseStream.Length);
+                read.Close();
+                sr.Close();
             }
         }
 
@@ -150,8 +162,6 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             User user = new User();
             bool result = false;
-
-
 
             user.Login = _login;
             user.Pwd = _pwd;
@@ -163,12 +173,11 @@ namespace mouham_cWpfMedecin.ViewModel
 
             try
             {
-                result = await _userService.AddUserAsync(user);
+               result = await _userService.AddUserAsync(user);
             }
             catch { }
 
-            Trace.WriteLine(result);
-            _modernNavigationService.NavigateTo(ViewModelLocator.UserPageKey);
+            _modernNavigationService.NavigateTo(ViewModelLocator.UsersPageKey);
         }
     }
 }

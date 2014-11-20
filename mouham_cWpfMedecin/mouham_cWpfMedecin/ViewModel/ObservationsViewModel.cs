@@ -39,6 +39,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// 
         /// </summary>
         public ICommand AddObservationCommand { get; set; }
+        public ICommand OpenWideImageCommand { get; set; }
 
         /// <summary>
         /// 
@@ -55,6 +56,7 @@ namespace mouham_cWpfMedecin.ViewModel
                 _serviceObservationClient = new ServiceObservationClient();
 
                 AddObservationCommand = new RelayCommand(AddObservation);
+                OpenWideImageCommand = new RelayCommand(OpenWideImage);
                 LoadedCommand = new RelayCommand(LoadData);
             }
             catch { }
@@ -72,6 +74,14 @@ namespace mouham_cWpfMedecin.ViewModel
         /// 
         /// </summary>
         private void AddObservation()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void OpenWideImage()
         {
             throw new NotImplementedException();
         }

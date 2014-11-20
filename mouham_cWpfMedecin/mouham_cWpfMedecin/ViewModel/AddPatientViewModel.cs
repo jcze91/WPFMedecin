@@ -15,7 +15,7 @@ namespace mouham_cWpfMedecin.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class AddPatientViewModel : ViewModelBase
+    public class AddPatientViewModel : ModernViewModelBase
     {
         /// <summary>
         /// 
@@ -35,7 +35,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             get { return _name; }
             set { Set(ref _name, value, "Name"); }
-        }
+                }
 
         private string _firstname;
         /// <summary>
@@ -63,7 +63,7 @@ namespace mouham_cWpfMedecin.ViewModel
         public ICommand ComfirmCommand { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the AddPatientViewModel1 class.
+        /// Initializes a new instance of the AddPatientViewModel class.
         /// </summary>
         /// <param name="modernNavigationService"></param>
         public AddPatientViewModel(IModernNavigationService modernNavigationService)
@@ -71,6 +71,17 @@ namespace mouham_cWpfMedecin.ViewModel
             _servicePatientClient = new ServicePatientClient();
             _modernNavigationService = modernNavigationService;
             ComfirmCommand = new RelayCommand(AddPatient);
+            LoadedCommand = new RelayCommand(LoadData);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void LoadData()
+        {
+            this.Name = "";
+            this.Firstname = "";
+            this.Birthday = DateTime.Today;
         }
 
         /// <summary>
@@ -101,7 +112,7 @@ namespace mouham_cWpfMedecin.ViewModel
             catch { }
 
             Trace.WriteLine(result);
-            _modernNavigationService.NavigateTo(ViewModelLocator.UserPageKey);
+            _modernNavigationService.NavigateTo(ViewModelLocator.PatientsPageKey);
         }
     }
 }

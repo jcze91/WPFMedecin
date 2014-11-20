@@ -31,7 +31,8 @@ namespace mouham_cWpfMedecin.ViewModel
         public const string ObservationsPageKey = "ObservationsView";
         public const string AddUserPageKey = "AddUserView";
         public const string AddPatientPageKey = "AddPatientView";
-        public const string UserPageKey = "UserView";
+        public const string UsersPageKey = "UsersView";
+        public const string PatientsPageKey = "PatientsView";
 
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
@@ -53,7 +54,8 @@ namespace mouham_cWpfMedecin.ViewModel
             navigationService.Configure(ViewModelLocator.ObservationsPageKey, new Uri("View/ObservationsControl.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.AddUserPageKey, new Uri("View/AddUserView.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.AddPatientPageKey, new Uri("View/AddPatientView.xaml", UriKind.Relative));
-            navigationService.Configure(ViewModelLocator.UserPageKey, new Uri("View/UsersControl.xaml", UriKind.Relative));
+            navigationService.Configure(ViewModelLocator.UsersPageKey, new Uri("View/UsersControl.xaml", UriKind.Relative));
+            navigationService.Configure(ViewModelLocator.PatientsPageKey, new Uri("View/PatientsControl.xaml", UriKind.Relative));
 
             SimpleIoc.Default.Register<IModernNavigationService>(() => navigationService);
             SimpleIoc.Default.Register<ISessionService>(() => sessionService);
