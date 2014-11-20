@@ -40,7 +40,7 @@ namespace mouham_cWpfMedecin.ViewModel
                         _modernNavigationService.NavigateTo(ViewModelLocator.ObservationsPageKey, p);
                     }, c => true);
             }
-            catch { }
+            catch(Exception e) { }
         }
 
         private async void LoadData()

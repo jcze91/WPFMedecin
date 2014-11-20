@@ -25,5 +25,10 @@ namespace mouham_cWpfMedecin.View
         {
             InitializeComponent();
         }
+
+        private void ModernUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
