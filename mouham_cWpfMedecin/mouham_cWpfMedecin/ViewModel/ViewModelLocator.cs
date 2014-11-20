@@ -47,6 +47,7 @@ namespace mouham_cWpfMedecin.ViewModel
             SimpleIoc.Default.Register<UsersViewModel>();
             SimpleIoc.Default.Register<AddUserViewModel>();
             SimpleIoc.Default.Register<AddPatientViewModel>();
+            SimpleIoc.Default.Register<ObservationsViewModel>();
 
             var navigationService = new ModernNavigationService();
             navigationService.Configure(ViewModelLocator.ObservationsPageKey, new Uri("View/ObservationsControl.xaml", UriKind.Relative));
@@ -97,6 +98,13 @@ namespace mouham_cWpfMedecin.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<AddPatientViewModel>();
+            }
+        }
+        public ObservationsViewModel Observations
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ObservationsViewModel>();
             }
         }
         

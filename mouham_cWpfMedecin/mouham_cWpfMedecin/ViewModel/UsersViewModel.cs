@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using mouham_cWpfMedecin.Services;
+using mouham_cWpfMedecin.ServiceUser;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,11 +14,11 @@ namespace mouham_cWpfMedecin.ViewModel
 {
     public class UsersViewModel : ModernViewModelBase
     {
-        private ObservableCollection<UserServiceReference.User> _users;
-        private UserServiceReference.ServiceUserClient _serviceUserClient;
         private readonly IModernNavigationService _modernNavigationService;
+        private ObservableCollection<User> _users;
+        private ServiceUserClient _serviceUserClient;
 
-        public ObservableCollection<UserServiceReference.User> Users
+        public ObservableCollection<User> Users
         {
             get { return _users; }
             set
@@ -38,11 +39,12 @@ namespace mouham_cWpfMedecin.ViewModel
             {
                 _modernNavigationService = modernNavigationService;
                 LoadedCommand = new RelayCommand(LoadData);
-                _serviceUserClient = new UserServiceReference.ServiceUserClient();
                 AddUserCommand = new RelayCommand(() =>
                     {
                         _modernNavigationService.NavigateTo(ViewModelLocator.AddUserPageKey);
                     });
+
+                _serviceUserClient = new ServiceUserClient();
             }
             catch { }
         }
@@ -51,7 +53,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             try
             {
-                Users = new ObservableCollection<UserServiceReference.User>(await _serviceUserClient.GetListUserAsync());
+                Users = new ObservableCollection<User>(await _serviceUserClient.GetListUserAsync());
             }
             catch { }
         }

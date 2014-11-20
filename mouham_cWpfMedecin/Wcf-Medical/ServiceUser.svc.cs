@@ -27,7 +27,7 @@ namespace Wcf_Medical
         /// <returns>une liste de users</returns>
         public List<Dbo.User> GetListUser()
         {
-            if (!DaSingleton.GetInstance().ListUser.Any())                
+            if (!DaSingleton.GetInstance().ListUser.Any())
             {
 
                 DaSingleton.GetInstance().ListUser = data.CreateListUser();
@@ -51,7 +51,7 @@ namespace Wcf_Medical
                 return DaSingleton.GetInstance().ListUser.Where(x => x.Login == login).First();
             }
             catch (Exception ex)
-            {                
+            {
                 throw new Exception("Exception Security ;)", ex);
             }
         }
@@ -116,6 +116,8 @@ namespace Wcf_Medical
             {
                 throw new Exception("Exception Security ;)", ex);
             }
+
+            DaSingleton.GetInstance().ListUser.ForEach(x => Console.WriteLine(x.Login + " : " + x.Pwd));
         }
 
         /// <summary>

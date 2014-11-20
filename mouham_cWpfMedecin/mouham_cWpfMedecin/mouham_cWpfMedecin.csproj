@@ -75,22 +75,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\ModernUserControl.cs" />
-    <Compile Include="Service References\LiveServiceReference\Reference.cs">
+    <Compile Include="Helpers\InverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\PasswordHelper.cs" />
+    <Compile Include="Service References\ServiceLive\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\ObservationServiceReference\Reference.cs">
+    <Compile Include="Service References\ServiceObservation\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\PatientServiceReference\Reference.cs">
+    <Compile Include="Service References\ServicePatient\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\UserServiceReference\Reference.cs">
+    <Compile Include="Service References\ServiceUser\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -100,6 +102,7 @@
     <Compile Include="ViewModel\AddPatientViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\ModernViewModelBase.cs" />
+    <Compile Include="ViewModel\ObservationsViewModel.cs" />
     <Compile Include="ViewModel\PortalViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\PatientsViewModel.cs" />
@@ -126,7 +129,7 @@
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowCloseBehaviour.cs" />
+    <Compile Include="Helpers\WindowCloseBehaviour.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -156,60 +159,59 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\LiveServiceReference\ServiceLive.wsdl" />
-    <None Include="Service References\LiveServiceReference\ServiceLive.xsd">
+    <None Include="Service References\ServiceLive\ServiceLive.wsdl" />
+    <None Include="Service References\ServiceLive\ServiceLive.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LiveServiceReference\ServiceLive1.xsd">
+    <None Include="Service References\ServiceLive\ServiceLive1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ObservationServiceReference\ServiceObservation.wsdl" />
-    <None Include="Service References\ObservationServiceReference\ServiceObservation.xsd">
+    <None Include="Service References\ServiceObservation\ServiceObservation.wsdl" />
+    <None Include="Service References\ServiceObservation\ServiceObservation.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ObservationServiceReference\ServiceObservation1.xsd">
+    <None Include="Service References\ServiceObservation\ServiceObservation1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ObservationServiceReference\ServiceObservation2.xsd">
+    <None Include="Service References\ServiceObservation\ServiceObservation2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ObservationServiceReference\ServiceObservation3.xsd">
+    <None Include="Service References\ServiceObservation\ServiceObservation3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PatientServiceReference\mouham_cWpfMedecin.PatientServiceReference.Patient.datasource">
+    <None Include="Service References\ServicePatient\mouham_cWpfMedecin.ServicePatient.Patient.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\PatientServiceReference\ServicePatient.wsdl" />
-    <None Include="Service References\PatientServiceReference\ServicePatient.xsd">
+    <None Include="Service References\ServicePatient\ServicePatient.wsdl" />
+    <None Include="Service References\ServicePatient\ServicePatient.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PatientServiceReference\ServicePatient1.xsd">
+    <None Include="Service References\ServicePatient\ServicePatient1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PatientServiceReference\ServicePatient2.xsd">
+    <None Include="Service References\ServicePatient\ServicePatient2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PatientServiceReference\ServicePatient3.xsd">
+    <None Include="Service References\ServicePatient\ServicePatient3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UserServiceReference\mouham_cWpfMedecin.UserServiceReference.User.datasource">
+    <None Include="Service References\ServiceUser\mouham_cWpfMedecin.ServiceUser.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\UserServiceReference\ServiceUser.wsdl" />
-    <None Include="Service References\UserServiceReference\ServiceUser.xsd">
+    <None Include="Service References\ServiceUser\ServiceUser.wsdl" />
+    <None Include="Service References\ServiceUser\ServiceUser.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UserServiceReference\ServiceUser1.xsd">
+    <None Include="Service References\ServiceUser\ServiceUser1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UserServiceReference\ServiceUser2.xsd">
+    <None Include="Service References\ServiceUser\ServiceUser2.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="View\AddPatientView.xaml">
       <SubType>Designer</SubType>
@@ -244,67 +246,67 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\LiveServiceReference\" />
-    <WCFMetadataStorage Include="Service References\ObservationServiceReference\" />
-    <WCFMetadataStorage Include="Service References\PatientServiceReference\" />
-    <WCFMetadataStorage Include="Service References\UserServiceReference\" />
+    <WCFMetadataStorage Include="Service References\ServiceLive\" />
+    <WCFMetadataStorage Include="Service References\ServiceObservation\" />
+    <WCFMetadataStorage Include="Service References\ServicePatient\" />
+    <WCFMetadataStorage Include="Service References\ServiceUser\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\UserServiceReference\ServiceUser.disco" />
+    <None Include="Service References\ServiceLive\ServiceLive.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\UserServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\ServiceLive\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\UserServiceReference\configuration.svcinfo" />
+    <None Include="Service References\ServiceLive\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\UserServiceReference\Reference.svcmap">
+    <None Include="Service References\ServiceLive\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\PatientServiceReference\ServicePatient.disco" />
+    <None Include="Service References\ServiceUser\ServiceUser.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\PatientServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\ServiceUser\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\PatientServiceReference\configuration.svcinfo" />
+    <None Include="Service References\ServiceUser\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\PatientServiceReference\Reference.svcmap">
+    <None Include="Service References\ServiceUser\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ObservationServiceReference\ServiceObservation.disco" />
+    <None Include="Service References\ServicePatient\ServicePatient.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ObservationServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\ServicePatient\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ObservationServiceReference\configuration.svcinfo" />
+    <None Include="Service References\ServicePatient\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ObservationServiceReference\Reference.svcmap">
+    <None Include="Service References\ServicePatient\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\LiveServiceReference\ServiceLive.disco" />
+    <None Include="Service References\ServiceObservation\ServiceObservation.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\LiveServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\ServiceObservation\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\LiveServiceReference\configuration.svcinfo" />
+    <None Include="Service References\ServiceObservation\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\LiveServiceReference\Reference.svcmap">
+    <None Include="Service References\ServiceObservation\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

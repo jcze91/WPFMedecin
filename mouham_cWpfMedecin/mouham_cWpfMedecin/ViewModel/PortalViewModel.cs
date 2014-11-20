@@ -12,6 +12,9 @@ namespace mouham_cWpfMedecin.ViewModel
 {
     public class PortalViewModel : ViewModelBase
     {
-   
+        public PortalViewModel()
+        {
+
+        }
     }
 }

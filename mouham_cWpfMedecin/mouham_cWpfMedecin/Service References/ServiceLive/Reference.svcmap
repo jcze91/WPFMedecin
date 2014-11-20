@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e9554915-2b32-4fd8-a5a4-ad269d1ccc01" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ede56284-5584-4b10-ac87-36d570e99265" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,10 +22,10 @@
     <MetadataSource Address="http://localhost:3055/ServiceLive.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ServiceLive.xsd" MetadataType="Schema" ID="2f40b2c7-41ce-4644-be87-bf09dbdbe5d8" SourceId="1" SourceUrl="http://localhost:3055/ServiceLive.svc?xsd=xsd0" />
-    <MetadataFile FileName="ServiceLive.disco" MetadataType="Disco" ID="c247b341-01d8-4686-91cd-8ed6f6ec021d" SourceId="1" SourceUrl="http://localhost:3055/ServiceLive.svc?disco" />
-    <MetadataFile FileName="ServiceLive.wsdl" MetadataType="Wsdl" ID="69e8bc60-f82a-42f7-adc0-23d240a2eaab" SourceId="1" SourceUrl="http://localhost:3055/ServiceLive.svc?wsdl" />
-    <MetadataFile FileName="ServiceLive1.xsd" MetadataType="Schema" ID="1e944673-a361-4d81-877e-ca7c157c3bd3" SourceId="1" SourceUrl="http://localhost:3055/ServiceLive.svc?xsd=xsd1" />
+    <MetadataFile FileName="ServiceLive.xsd" MetadataType="Schema" ID="1235c74e-b57f-4661-a1a3-15341644e8ff" SourceId="1" SourceUrl="http://localhost:3055/ServiceLive.svc?xsd=xsd0" />
+    <MetadataFile FileName="ServiceLive.disco" MetadataType="Disco" ID="1ec233d0-1a09-42cb-b4c0-9086049fdf10" SourceId="1" SourceUrl="http://localhost:3055/ServiceLive.svc?disco" />
+    <MetadataFile FileName="ServiceLive.wsdl" MetadataType="Wsdl" ID="8a78cb85-e3d7-49e2-a32e-5837db4f9996" SourceId="1" SourceUrl="http://localhost:3055/ServiceLive.svc?wsdl" />
+    <MetadataFile FileName="ServiceLive1.xsd" MetadataType="Schema" ID="f662ecb3-878e-46d8-9082-96ec3d166639" SourceId="1" SourceUrl="http://localhost:3055/ServiceLive.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
