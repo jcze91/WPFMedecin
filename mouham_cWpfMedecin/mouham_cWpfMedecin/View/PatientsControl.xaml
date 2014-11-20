@@ -47,11 +47,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <mui:ModernButton  Content="voir les observations" Width="150"  Grid.Column="0" Grid.ColumnSpan="2" Height="28"
+            <mui:ModernButton  Content="voir le profil" Width="150"  Grid.Column="0" Grid.ColumnSpan="2" Height="28"
                                IconData="F1 M 57.3958,49.0833L 47.5,49.0833L 42.75,63.3333L 40.375,63.3333L 37.6041,26.5209L 34.4375,49.0833L 28.5,49.0833L 22.9583,45.5208L 19,49.0833L 11.0833,49.0833L 11.0833,46.3125L 19,46.3125L 22.9583,42.75L 28.5,46.3125L 31.5883,46.3125L 36.4166,11.4792L 39.1875,11.875L 42.7499,55.0209L 46.3125,46.3125L 57,46.3125L 63.3333,41.1667L 66.5,41.1667L 66.5,43.9375L 63.3333,43.9375L 57.3958,49.0833 Z ">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding SeeObservationsCommand}"
+                        <i:InvokeCommandAction Command="{Binding SeeUserProfileCommand}"
                                                CommandParameter="{Binding ElementName=patients, 
                                                Path=SelectedItem}"/>
                     </i:EventTrigger>
