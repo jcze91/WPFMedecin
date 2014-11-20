@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using FirstFloor.ModernUI.Windows.Controls;
+using GalaSoft.MvvmLight.Command;
 using mouham_cWpfMedecin.Services;
 using mouham_cWpfMedecin.ServiceUser;
 using System;
@@ -8,6 +9,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace mouham_cWpfMedecin.ViewModel
@@ -58,8 +61,20 @@ namespace mouham_cWpfMedecin.ViewModel
 
         async void DeleteUser()
         {
-            if (SelectedUser != null && await _serviceUserClient.DeleteUserAsync(SelectedUser.Login))
-                Users.Remove(SelectedUser);
+            if (SelectedUser != null)
+            {
+                var dialog = new ModernDialog
+                {
+                    Title = "Supprimer utilisateur",
+                    Content = String.Format("Voulez-vous supprimer l'utilisateur {0} {1} ?", SelectedUser.Name, SelectedUser.Firstname)
+                };
+
+                dialog.Buttons = new Button[] { dialog.CancelButton, dialog.YesButton };
+                dialog.ShowDialog();
+
+                if (dialog.MessageBoxResult == MessageBoxResult.Yes && await _serviceUserClient.DeleteUserAsync(SelectedUser.Login))
+                    Users.Remove(SelectedUser);
+            }
         }
 
         async void LoadData()
