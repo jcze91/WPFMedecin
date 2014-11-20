@@ -1,117 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using mouham_cWpfMedecin.View;
-using System.ComponentModel;
-using mouham_cWpfMedecin.ServiceUser;
-using System.Windows.Controls;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using System.Diagnostics;
+﻿using GalaSoft.MvvmLight.Command;
 using mouham_cWpfMedecin.Services;
-using System.Windows;
+using mouham_cWpfMedecin.ServiceUser;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Windows.Input;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AddUserViewModel : ModernViewModelBase
     {
-        private ServiceUserClient _userService;
-        private Byte[] _picture;
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly IModernNavigationService _modernNavigationService;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private IServiceUser _userService;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private BackgroundWorker _connectWorker;
 
         private string _login;
+        /// <summary>
+        /// 
+        /// </summary>
         public string Login
         {
             get { return _login; }
-            set {
-                if (_login != value)
-                {
-                    _login = value;
-                    RaisePropertyChanged("Login");
+            set { Set(ref _login, value, "Login"); }
                 }
-            }
-        }
 
         private string _pwd;
+        /// <summary>
+        /// 
+        /// </summary>
         public string Pwd
         {
             get { return _pwd; }
-            set {
-                if (_pwd != value)
-                {
-                    _pwd = value;
-                    RaisePropertyChanged("Pwd");
+            set { Set(ref _pwd, value, "Pwd"); }
                 }
-            }
-        }
 
         private string _name;
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name
         {
             get { return _name; }
-            set {
-                if (_name != value)
-                {
-                    _name = value;
-                    RaisePropertyChanged("Name");
-                }
-            }
+            set { Set(ref _name, value, "Name"); }
         }
 
         private string _firstname;
+        /// <summary>
+        /// 
+        /// </summary>
         public string Firstname
         {
             get { return _firstname; }
-            set
-            {
-                if (_firstname != value)
-                {
-                    _firstname = value;
-                    RaisePropertyChanged("Firstname");
-                }
-            }
+            set { Set(ref _firstname, value, "Firstname"); }
+        }
+
+        private Byte[] _picture;
+        /// <summary>
+        /// 
+        /// </summary>
+        public Byte[] Picture
+        {
+            get { return _picture; }
+            set { Set(ref _picture, value, "Picture"); }
         }
 
         private string _pictureFilename;
+        /// <summary>
+        /// 
+        /// </summary>
         public string PictureFilename
         {
             get { return _pictureFilename; }
-            set {
-                if (_pictureFilename != value)
-                {
-                    _pictureFilename = value;
-                    RaisePropertyChanged("PictureFilename");
-                }    
-            }
+            set { Set(ref _pictureFilename, value, "PictureFilename"); }
         }
 
         private string _role;
+        /// <summary>
+        /// 
+        /// </summary>
         public string Role
         {
             get { return _role; }
-            set {
-                if (_role != value)
-                {
-                    _role = value;
-                    RaisePropertyChanged("Role");
-                }
-            }
+            set { Set(ref _role, value, "Role"); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand ComfirmCommand { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand BrowseCommand { get; set; }
-        private readonly IModernNavigationService _modernNavigationService;
 
         /// <summary>
         /// Initializes a new instance of the AddUserViewModel class.
         /// </summary>
+        /// <param name="modernNavigationService"></param>
         public AddUserViewModel(IModernNavigationService modernNavigationService)
         {
             _userService = new ServiceUserClient();
             _modernNavigationService = modernNavigationService;
+
             ComfirmCommand = new RelayCommand(() => AddUser());
             BrowseCommand = new RelayCommand(() => SelectFile());
             LoadedCommand = new RelayCommand(LoadData);
@@ -143,12 +149,8 @@ namespace mouham_cWpfMedecin.ViewModel
             {
                 // Open document
                 PictureFilename = dlg.FileName;
-                //Picture = System.IO.File.ReadAllBytes(_pictureFilename);
-                StreamReader sr = new StreamReader(PictureFilename);
-                BinaryReader read = new BinaryReader(sr.BaseStream);
-                _picture = read.ReadBytes((int)sr.BaseStream.Length);
-                read.Close();
-                sr.Close();
+
+                _picture = System.IO.File.ReadAllBytes(_pictureFilename);
             }
         }
 

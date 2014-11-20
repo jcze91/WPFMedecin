@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         mc:Ignorable="d" 
-        d:DesignHeight="300" d:DesignWidth="500"
+        d:DesignHeight="200" d:DesignWidth="500"
         DataContext="{Binding AddPatient, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="NavigatedTo">
@@ -39,14 +39,14 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="LastName"/>
-        <Label Grid.Column="0" Grid.Row="1" Content="FirstName"/>
-        <Label Grid.Column="0" Grid.Row="2" Content="Birthday"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="Nom"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Prénom"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Date de naissance"/>
 
 
-        <TextBox Grid.Column="1" Grid.Row="0" Name="Name" Text="{Binding Name, Mode=TwoWay}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Name="Firstname" Text="{Binding Firstname, Mode=TwoWay}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Name="Role" Text="{Binding Birthday, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Name="Name" Text="{Binding Name, Mode=TwoWay}" Height="28" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Name="Firstname" Text="{Binding Firstname, Mode=TwoWay}" Height="28" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Name="Role" Text="{Binding Birthday, Mode=TwoWay}" Height="28" VerticalAlignment="Top"/>
         <Button  Content="Submit" Width="100" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="28">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">

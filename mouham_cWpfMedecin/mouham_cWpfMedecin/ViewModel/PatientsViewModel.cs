@@ -3,25 +3,32 @@ using GalaSoft.MvvmLight.Command;
 using mouham_cWpfMedecin.ServicePatient;
 using mouham_cWpfMedecin.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PatientsViewModel : ModernViewModelBase
     {
-
-        private IServicePatient _servicePatientClient;
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private IServicePatient _servicePatientClient;
+
         private ObservableCollection<Patient> _patients;
+        /// <summary>
+        /// 
+        /// </summary>
         public ObservableCollection<Patient> Patients
         {
             get { return _patients; }
@@ -29,6 +36,9 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         private Patient _selectedPatient;
+        /// <summary>
+        /// 
+        /// </summary>
         public Patient SelectedPatient
         {
             get { return _selectedPatient; }
@@ -36,9 +46,21 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         public ICommand SeeUserProfileCommand { get; private set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand AddPatientCommand { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand DeletePatientCommand { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modernNavigationService"></param>
+        /// <param name="sessionService"></param>
         public PatientsViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
         {
             try
@@ -56,6 +78,23 @@ namespace mouham_cWpfMedecin.ViewModel
             catch (Exception e) { }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        async void LoadData()
+        {
+            try
+            {
+                Patients = new ObservableCollection<Patient>(await _servicePatientClient.GetListPatientAsync());
+            }
+            catch
+            {
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         void AddPatient()
         {
             _modernNavigationService.NavigateTo(ViewModelLocator.AddPatientPageKey);
@@ -67,6 +106,9 @@ namespace mouham_cWpfMedecin.ViewModel
                 _modernNavigationService.NavigateTo(ViewModelLocator.UserProfilePageKey, SelectedPatient);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         async void DeletePatient()
         {
             if (SelectedPatient != null)
@@ -86,17 +128,6 @@ namespace mouham_cWpfMedecin.ViewModel
 
                 if (dialog.MessageBoxResult == MessageBoxResult.Yes && await _servicePatientClient.DeletePatientAsync(SelectedPatient.Id))
                     Patients.Remove(SelectedPatient);
-            }
-        }
-
-        async void LoadData()
-        {
-            try
-            {
-                Patients = new ObservableCollection<Patient>(await _servicePatientClient.GetListPatientAsync());
-            }
-            catch
-            {
             }
         }
     }

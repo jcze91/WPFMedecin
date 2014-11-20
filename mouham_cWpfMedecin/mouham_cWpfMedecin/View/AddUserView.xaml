@@ -43,20 +43,20 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="LastName"/>
-        <Label Grid.Column="0" Grid.Row="1" Content="FirstName"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="Nom"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Prénom"/>
         <Label Grid.Column="0" Grid.Row="2" Content="Role"/>
         <Label Grid.Column="0" Grid.Row="3" Content="Login"/>
-        <Label Grid.Column="0" Grid.Row="4" Content="Password"/>
-        <Label Grid.Column="0" Grid.Row="5" Content="Picture"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="Mot de passe"/>
+        <Label Grid.Column="0" Grid.Row="5" Content="Image"/>
 
-        <TextBox Grid.Column="1" Grid.Row="0" Name="Name" Text="{Binding Name, Mode=TwoWay}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Name="Firstname" Text="{Binding Firstname, Mode=TwoWay}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Name="Role" Text="{Binding Role, Mode=TwoWay}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Name="Login" Text="{Binding Login, Mode=TwoWay}"/>
-        <TextBox Grid.Column="1" Grid.Row="4" Name="Pwd" Text="{Binding Pwd, Mode=TwoWay}"/>
-        <TextBox Grid.Column="1" Grid.Row="5" Name="Picture" Margin="0,0,74,0" Text="{Binding PictureFilename, Mode=TwoWay}"/>
-        <Button  Content="Browse" Width="74" Grid.Row="5" Grid.Column="1" Height="28" HorizontalAlignment="Right">
+        <TextBox Grid.Column="1" Grid.Row="0" Name="Name" Text="{Binding Name, Mode=TwoWay}" Height="28" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Name="Firstname" Text="{Binding Firstname, Mode=TwoWay}" Height="28" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Name="Role" Text="{Binding Role, Mode=TwoWay}" Height="28" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Name="Login" Text="{Binding Login, Mode=TwoWay}" Height="28" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Name="Pwd" Text="{Binding Pwd, Mode=TwoWay}" Height="28" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" Grid.Row="5" Name="Picture" Margin="0,0,90,0" Text="{Binding PictureFilename, Mode=TwoWay}" Height="28" VerticalAlignment="Top"/>
+        <Button  Content="Parcourir" Width="90" Grid.Row="5" Grid.Column="1" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <i:InvokeCommandAction Command="{Binding BrowseCommand}"/>

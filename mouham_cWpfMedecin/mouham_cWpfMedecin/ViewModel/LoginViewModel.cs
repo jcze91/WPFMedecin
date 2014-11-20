@@ -7,12 +7,25 @@ using System.Windows.Input;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LoginViewModel : ViewModelBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private ServiceUserClient _serviceUserClient;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private ISessionService _sessionService;
 
         private string _login;
+        /// <summary>
+        /// 
+        /// </summary>
         public string Login
         {
             get { return _login; }
@@ -20,6 +33,9 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         private bool _isConnecting;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsConnecting
         {
             get { return _isConnecting; }
@@ -27,6 +43,9 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         private string _password;
+        /// <summary>
+        /// 
+        /// </summary>
         public string Password
         {
             get { return _password; }
@@ -34,6 +53,9 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         private bool _closeTrigger;
+        /// <summary>
+        /// 
+        /// </summary>
         public bool CloseTrigger
         {
             get { return _closeTrigger; }
@@ -41,14 +63,24 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         private string _errorText;
+        /// <summary>
+        /// 
+        /// </summary>
         public string ErrorText
         {
             get { return _errorText; }
             set { Set(ref _errorText, value, "ErrorText"); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand LoginCommand { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionService"></param>
         public LoginViewModel(ISessionService sessionService)
         {
             _sessionService = sessionService;
@@ -60,6 +92,9 @@ namespace mouham_cWpfMedecin.ViewModel
             LoginCommand = new RelayCommand(LoginExecute, CanLoginExecute);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         async private void LoginExecute()
         {
             ErrorText = "";
@@ -82,6 +117,10 @@ namespace mouham_cWpfMedecin.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private bool CanLoginExecute()
         {
             return !IsConnecting;

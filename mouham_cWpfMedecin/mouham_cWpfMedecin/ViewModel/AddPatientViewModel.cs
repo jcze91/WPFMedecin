@@ -17,63 +17,66 @@ namespace mouham_cWpfMedecin.ViewModel
     /// </summary>
     public class AddPatientViewModel : ModernViewModelBase
     {
-        private string _name;
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
-        private ServicePatientClient _servicePatientClient;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private IServicePatient _servicePatientClient;
 
+        private string _name;
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name
         {
             get { return _name; }
-            set {
-                if (_name != value)
-                {
-                    _name = value;
-                    RaisePropertyChanged("Name");
+            set { Set(ref _name, value, "Name"); }
                 }
-            }
-        }
-        private string _firstname;
 
+        private string _firstname;
+        /// <summary>
+        /// 
+        /// </summary>
         public string Firstname
         {
             get { return _firstname; }
-            set
-            {
-                if (_firstname != value)
-                {
-                    _firstname = value;
-                    RaisePropertyChanged("Firstname");
-                }
-            }
+            set { Set(ref _firstname, value, "Firstname"); }
         }
-        private DateTime _birthday;
 
+        private DateTime _birthday;
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime Birthday
         {
             get { return _birthday; }
-            set
-            {
-                if (_birthday != value)
-                {
-                    _birthday = value;
-                    RaisePropertyChanged("Birthday");
-                }
-            }
+            set { Set(ref _birthday, value, "Birthday"); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand ComfirmCommand { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the AddPatientViewModel class.
         /// </summary>
+        /// <param name="modernNavigationService"></param>
         public AddPatientViewModel(IModernNavigationService modernNavigationService)
         {
             _servicePatientClient = new ServicePatientClient();
             _modernNavigationService = modernNavigationService;
-            ComfirmCommand = new RelayCommand(() => AddPatient());
+            ComfirmCommand = new RelayCommand(AddPatient);
             LoadedCommand = new RelayCommand(LoadData);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void LoadData()
         {
             this.Name = "";
@@ -81,6 +84,9 @@ namespace mouham_cWpfMedecin.ViewModel
             this.Birthday = DateTime.Today;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private async void AddPatient()
         {
             Patient patient = new Patient();
