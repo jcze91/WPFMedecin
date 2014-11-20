@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using mouham_cWpfMedecin.View;
 using System.ComponentModel;
-using mouham_cWpfMedecin.UserServiceReference;
+using mouham_cWpfMedecin.ServiceUser;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;

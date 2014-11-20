@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using mouham_cWpfMedecin.PatientServiceReference;
+using mouham_cWpfMedecin.ServicePatient;
 using mouham_cWpfMedecin.Services;
 using System;
 using System.Collections.Generic;
