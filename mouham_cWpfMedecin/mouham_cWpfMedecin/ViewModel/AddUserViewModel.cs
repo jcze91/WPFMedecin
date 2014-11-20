@@ -146,10 +146,12 @@ namespace mouham_cWpfMedecin.ViewModel
             {
                 // Open document
                 PictureFilename = dlg.FileName;
-                //Picture = System.IO.File.ReadAllBytes(_pictureFilename);
-                StreamReader sr = new StreamReader(PictureFilename);
-                BinaryReader read = new BinaryReader(sr.BaseStream);
-                Picture = read.ReadBytes((int)sr.BaseStream.Length);
+                byte[] bArray = System.IO.File.ReadAllBytes(_pictureFilename);
+                Picture = new Byte[bArray.Length];
+                for (int i = 0; i < bArray.Length; i++)
+                {
+                    Picture[i] = bArray[i];
+                }
             }
         }
 
