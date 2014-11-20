@@ -25,7 +25,7 @@ namespace mouham_cWpfMedecin.ViewModel
             set { Set(ref _patient, value, "Patient"); }
         }
         public ICommand AddObservationCommand { get; set; }
-
+        public ICommand OpenWideImageCommand { get; set; }
 
         public ObservationsViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
         {
@@ -38,6 +38,10 @@ namespace mouham_cWpfMedecin.ViewModel
                     {
                         //_modernNavigationService.NavigateTo(ViewModelLocator.AddObservationPageKey);
                     }, c => true);
+                OpenWideImageCommand = new RelayCommand<Object>(c =>
+                {
+                    //_modernNavigationService.NavigateTo(ViewModelLocator.AddObservationPageKey);
+                }, c => true);
                 LoadedCommand = new RelayCommand(LoadData);
             }
             catch { }

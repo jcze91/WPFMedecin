@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:view="clr-namespace:mouham_cWpfMedecin.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="500"
+             d:DesignHeight="300" d:DesignWidth="1000"
              DataContext="{Binding Observations, Source={StaticResource Locator}}" Loaded="UserControl_Loaded">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="NavigatedTo">
@@ -33,53 +34,132 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid Name="observations" AlternatingRowBackground="AliceBlue"  AutoGenerateColumns="False" 
+        <StackPanel Orientation="Vertical">
+            <DataGrid Name="observations" AlternatingRowBackground="AliceBlue"  AutoGenerateColumns="False" 
                               DataContext="{Binding Patient.Observations}"
                               IsReadOnly="True" ItemsSource="{Binding}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Date}" Header="Observations" Width="*" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Grid.Column="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock FontFamily="Segoe UI Light" FontSize="28"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Padding="0" HorizontalAlignment="Center">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="Patient: {0} {1}"> 
-                          <Binding Path="Patient.Firstname" /> 
-                          <Binding Path="Patient.Name" /> 
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-
-                <TextBlock FontFamily="Segoe UI Light" Text="Date" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <TextBlock FontFamily="Segoe UI Light" Text="{Binding ElementName=observations, Path=SelectedItem.Date}" Grid.Row="1" Grid.Column="1" Height="20" Padding="0" />
-                <TextBlock FontFamily="Segoe UI Light" Text="Poids" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <TextBlock FontFamily="Segoe UI Light" Text="{Binding ElementName=observations, Path=SelectedItem.Weight}" Grid.Row="2" Grid.Column="1" Height="20" Padding="0" />
-                <TextBlock FontFamily="Segoe UI Light" Text="Pression sanguine" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <TextBlock FontFamily="Segoe UI Light" Text="{Binding ElementName=observations, Path=SelectedItem.BloodPressure}" Grid.Row="3" Grid.Column="1" Height="20" Padding="0" />
-
-            </Grid>
-            <TextBlock FontFamily="Segoe UI Light" Padding="10" Text="{Binding ElementName=observations, Path=SelectedItem.Comment, StringFormat='Commentaires: {0}'}" Height="78" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextTrimming="WordEllipsis" TextOptions.TextHintingMode="Animated">
-       
-            </TextBlock>
-            <DataGrid Name="prescriptions" AlternatingRowBackground="AliceBlue" AutoGenerateColumns="False" 
-                              DataContext="{Binding ElementName=observations, Path=SelectedItem.Prescription}"
-                              IsReadOnly="True" ItemsSource="{Binding}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding}" Header="Prescription" Width="*" />
+                    <DataGridTextColumn Binding="{Binding Date}" Header="Observations" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
+            <mui:ModernButton  Content="ajouter une observation" Width="200"  Grid.Column="0" Grid.ColumnSpan="2" Height="28"
+                               Visibility="{Binding Role, Converter={StaticResource RoleToVisibility}}"
+                               IconData="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z " HorizontalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding AddObservationCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </mui:ModernButton>
         </StackPanel>
+
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto"  Height="Auto" CanContentScroll="True">
+            <StackPanel Grid.Column="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontFamily="Segoe UI Light" FontSize="28"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="40" Padding="0" HorizontalAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Patient: {0} {1}">
+                                <Binding Path="Patient.Firstname" />
+                                <Binding Path="Patient.Name" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                    <TextBlock FontFamily="Segoe UI Light" Text="Date" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock FontFamily="Segoe UI Light" Text="{Binding ElementName=observations, Path=SelectedItem.Date}" Grid.Row="1" Grid.Column="1" Height="20" Padding="0" />
+                    <TextBlock FontFamily="Segoe UI Light" Text="Poids" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock FontFamily="Segoe UI Light" Text="{Binding ElementName=observations, Path=SelectedItem.Weight}" Grid.Row="2" Grid.Column="1" Height="20" Padding="0" />
+                    <TextBlock FontFamily="Segoe UI Light" Text="Pression sanguine" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock FontFamily="Segoe UI Light" Text="{Binding ElementName=observations, Path=SelectedItem.BloodPressure}" Grid.Row="3" Grid.Column="1" Height="20" Padding="0" />
+
+                </Grid>
+                <TextBlock FontFamily="Segoe UI Light" Padding="10" Text="{Binding ElementName=observations, Path=SelectedItem.Comment, StringFormat='Commentaires: {0}'}" Height="78" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextTrimming="WordEllipsis" TextOptions.TextHintingMode="Animated">
+
+                </TextBlock>
+                <DataGrid Name="prescriptions" AlternatingRowBackground="AliceBlue" AutoGenerateColumns="False" 
+                              DataContext="{Binding ElementName=observations, Path=SelectedItem.Prescription}"
+                              IsReadOnly="True" ItemsSource="{Binding}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding}" Header="Prescription" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ItemsControl ItemsSource="{Binding ElementName=observations, Path=SelectedItem.Pictures}" Background="Transparent" Margin="15">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Width="200" Height="200" RenderTransformOrigin="0.5, 0.5"  >
+                                    <Button.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform />
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Button.RenderTransform>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Padding="5">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Image Source="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200"  />
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                    <Button.Resources>
+                                        <ElasticEase x:Key="easeOutBounce" EasingMode="EaseOut" Springiness="6" Oscillations="4" />
+                                    </Button.Resources>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding OpenWideImageCommand}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <BeginStoryboard>
+                                                <Storyboard Duration="00:00:00.05" AutoReverse="True">
+                                                    <DoubleAnimation To="0.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"/>
+                                                    <DoubleAnimation To="0.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" From="0.1" To="1.0" EasingFunction="{StaticResource easeOutBounce}" />
+                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" From="0.1" To="1.0" EasingFunction="{StaticResource easeOutBounce}" />
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.1" To="1.0" EasingFunction="{StaticResource easeOutBounce}" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
     </Grid>
     <!--
     

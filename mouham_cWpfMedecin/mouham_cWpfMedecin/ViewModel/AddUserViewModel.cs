@@ -20,6 +20,7 @@ namespace mouham_cWpfMedecin.ViewModel
     public class AddUserViewModel : ModernViewModelBase
     {
         private ServiceUserClient _userService;
+        private Byte[] _picture;
 
         private string _login;
         public string Login
@@ -73,18 +74,6 @@ namespace mouham_cWpfMedecin.ViewModel
                 }
             }
         }
-        private Byte[] _picture;
-        public Byte[] Picture
-        {
-            get { return _picture; }
-            set {
-                if (_picture != value)
-                {
-                    _picture = value;
-                    RaisePropertyChanged("Picture");
-                }
-            }
-        }
 
         private string _pictureFilename;
         public string PictureFilename
@@ -127,6 +116,16 @@ namespace mouham_cWpfMedecin.ViewModel
             _modernNavigationService = modernNavigationService;
             ComfirmCommand = new RelayCommand(() => AddUser());
             BrowseCommand = new RelayCommand(() => SelectFile());
+            LoadedCommand = new RelayCommand(LoadData);
+        }
+        private void LoadData()
+        {
+            this.Role = "";
+            this.Firstname = "";
+            this.Name = "";
+            this.Login = "";
+            this.Pwd = "";
+            this.PictureFilename = "";
         }
 
         private void SelectFile()
@@ -149,7 +148,9 @@ namespace mouham_cWpfMedecin.ViewModel
                 //Picture = System.IO.File.ReadAllBytes(_pictureFilename);
                 StreamReader sr = new StreamReader(PictureFilename);
                 BinaryReader read = new BinaryReader(sr.BaseStream);
-                Picture = read.ReadBytes((int)sr.BaseStream.Length);
+                _picture = read.ReadBytes((int)sr.BaseStream.Length);
+                read.Close();
+                sr.Close();
             }
         }
 
