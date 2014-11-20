@@ -20,6 +20,7 @@ namespace mouham_cWpfMedecin.ViewModel
     public class AddUserViewModel : ModernViewModelBase
     {
         private ServiceUserClient _userService;
+        private Byte[] _picture;
 
         private string _login;
         public string Login
@@ -73,18 +74,6 @@ namespace mouham_cWpfMedecin.ViewModel
                 }
             }
         }
-        private Byte[] _picture;
-        public Byte[] Picture
-        {
-            get { return _picture; }
-            set {
-                if (_picture != value)
-                {
-                    _picture = value;
-                    RaisePropertyChanged("Picture");
-                }
-            }
-        }
 
         private string _pictureFilename;
         public string PictureFilename
@@ -115,8 +104,6 @@ namespace mouham_cWpfMedecin.ViewModel
         public ICommand ComfirmCommand { get; set; }
         public ICommand BrowseCommand { get; set; }
         private readonly IModernNavigationService _modernNavigationService;
-        private BackgroundWorker _connectWorker;
-        private ServiceUserClient _serviceUserClient;
 
         /// <summary>
         /// Initializes a new instance of the AddUserViewModel class.
@@ -127,6 +114,16 @@ namespace mouham_cWpfMedecin.ViewModel
             _modernNavigationService = modernNavigationService;
             ComfirmCommand = new RelayCommand(() => AddUser());
             BrowseCommand = new RelayCommand(() => SelectFile());
+            LoadedCommand = new RelayCommand(LoadData);
+        }
+        private void LoadData()
+        {
+            this.Role = "";
+            this.Firstname = "";
+            this.Name = "";
+            this.Login = "";
+            this.Pwd = "";
+            this.PictureFilename = "";
         }
 
         private void SelectFile()
@@ -146,12 +143,7 @@ namespace mouham_cWpfMedecin.ViewModel
             {
                 // Open document
                 PictureFilename = dlg.FileName;
-                byte[] bArray = System.IO.File.ReadAllBytes(_pictureFilename);
-                Picture = new Byte[bArray.Length];
-                for (int i = 0; i < bArray.Length; i++)
-                {
-                    Picture[i] = bArray[i];
-                }
+                Picture = System.IO.File.ReadAllBytes(_pictureFilename);
             }
         }
 
@@ -159,8 +151,6 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             User user = new User();
             bool result = false;
-
-            
 
             user.Login = _login;
             user.Pwd = _pwd;
@@ -176,8 +166,7 @@ namespace mouham_cWpfMedecin.ViewModel
             }
             catch { }
 
-            Trace.WriteLine(result);
-            _modernNavigationService.NavigateTo(ViewModelLocator.UserPageKey);
+            _modernNavigationService.NavigateTo(ViewModelLocator.UsersPageKey);
         }
     }
 }
