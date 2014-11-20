@@ -35,9 +35,11 @@
             <RowDefinition Height="8*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" 
+        <DataGrid ItemsSource="{Binding Users}" AutoGenerateColumns="False" 
                 Name="users" 
-                DataContext="{Binding Users}" IsReadOnly="True">
+                  SelectedItem="{Binding SelectedUser}"
+                  SelectionMode="Single"
+                  IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Firstname}" Header="Prénom" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Nom" Width="*"/>

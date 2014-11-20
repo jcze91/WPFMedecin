@@ -15,42 +15,54 @@ namespace mouham_cWpfMedecin.ViewModel
     public class UsersViewModel : ModernViewModelBase
     {
         private readonly IModernNavigationService _modernNavigationService;
-        private ObservableCollection<User> _users;
         private ServiceUserClient _serviceUserClient;
 
+        private ObservableCollection<User> _users;
         public ObservableCollection<User> Users
         {
             get { return _users; }
-            set
-            {
-                if (_users != value)
-                {
-                    _users = value;
-                    RaisePropertyChanged("Users");
-                }
-            }
+            set { Set(ref _users, value, "Users"); }
         }
 
-        public ICommand AddUserCommand { get; set; }
+        private User _selectedUser;
+        public User SelectedUser
+        {
+            get { return _selectedUser; }
+            set { Set(ref _selectedUser, value, "SelectedUser"); }
+        }
+
+        public ICommand AddUserCommand { get; private set; }
+        public ICommand DeleteUserCommand { get; private set; }
 
         public UsersViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
         {
             try
             {
                 this.Role = sessionService.Role;
-                _modernNavigationService = modernNavigationService;
-                LoadedCommand = new RelayCommand(LoadData);
-                AddUserCommand = new RelayCommand(() =>
-                    {
-                        _modernNavigationService.NavigateTo(ViewModelLocator.AddUserPageKey);
-                    });
 
+                _modernNavigationService = modernNavigationService;
                 _serviceUserClient = new ServiceUserClient();
+
+                LoadedCommand = new RelayCommand(LoadData);
+                AddUserCommand = new RelayCommand(AddUser);
+                DeleteUserCommand = new RelayCommand(DeleteUser);
+
             }
             catch { }
         }
 
-        private async void LoadData()
+        void AddUser()
+        {
+            _modernNavigationService.NavigateTo(ViewModelLocator.AddUserPageKey);
+        }
+
+        async void DeleteUser()
+        {
+            if (SelectedUser != null && await _serviceUserClient.DeleteUserAsync(SelectedUser.Login))
+                Users.Remove(SelectedUser);
+        }
+
+        async void LoadData()
         {
             try
             {
