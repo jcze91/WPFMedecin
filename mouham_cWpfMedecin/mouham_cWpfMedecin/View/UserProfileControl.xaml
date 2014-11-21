@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ddd= "http://research.microsoft.com/DynamicDataDisplay/1.0" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:helpers="clr-namespace:mouham_cWpfMedecin.Helpers"
              xmlns:view="clr-namespace:mouham_cWpfMedecin.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="1000"
@@ -35,6 +37,10 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical">
+            <Border Margin="0" Grid.Row="0" HorizontalAlignment="Center">
+                <helpers:DynamicLineChartPlotter x:Name="Chart" LegendVisible="False" ItemsSource="{Binding HeartChart}" HorizontalAlignment="Center" FontSize="0.01" Foreground="{x:Null}">
+                </helpers:DynamicLineChartPlotter>
+            </Border>
             <TextBlock Width="Auto" FontFamily="Segoe UI Light" FontSize="14" Height="40" Padding="0" HorizontalAlignment="Center">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="Rythme cardiaque: {0} ❤">
@@ -69,6 +75,7 @@
 
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto"  Height="Auto" CanContentScroll="True">
             <StackPanel Grid.Column="1">
+                
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
