@@ -35,7 +35,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             get { return _name; }
             set { Set(ref _name, value, "Name"); }
-                }
+        }
 
         private string _firstname;
         /// <summary>

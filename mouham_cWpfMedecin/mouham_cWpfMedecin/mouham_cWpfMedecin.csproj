@@ -102,6 +102,7 @@
     <Compile Include="Services\ISessionService.cs" />
     <Compile Include="Services\ModernNavigationService.cs" />
     <Compile Include="Services\SessionService.cs" />
+    <Compile Include="ViewModel\AddObservationViewModel.cs" />
     <Compile Include="ViewModel\AddPatientViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\ModernViewModelBase.cs" />
@@ -111,6 +112,9 @@
     <Compile Include="ViewModel\PatientsViewModel.cs" />
     <Compile Include="ViewModel\UsersViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\AddObservationView.xaml.cs">
+      <DependentUpon>AddObservationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddPatientView.xaml.cs">
       <DependentUpon>AddPatientView.xaml</DependentUpon>
     </Compile>
@@ -216,6 +220,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\AddObservationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddPatientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

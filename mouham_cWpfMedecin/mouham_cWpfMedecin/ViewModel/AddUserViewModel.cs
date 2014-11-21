@@ -37,7 +37,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             get { return _login; }
             set { Set(ref _login, value, "Login"); }
-                }
+        }
 
         private string _pwd;
         /// <summary>
@@ -47,7 +47,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             get { return _pwd; }
             set { Set(ref _pwd, value, "Pwd"); }
-                }
+        }
 
         private string _name;
         /// <summary>
@@ -168,7 +168,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
             try
             {
-               result = await _userService.AddUserAsync(user);
+                result = await _userService.AddUserAsync(user);
             }
             catch { }
 

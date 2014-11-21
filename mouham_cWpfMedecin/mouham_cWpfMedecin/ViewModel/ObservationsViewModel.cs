@@ -75,7 +75,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// </summary>
         private void AddObservation()
         {
-            throw new NotImplementedException();
+            _modernNavigationService.NavigateTo(ViewModelLocator.AddObservationPageKey);
         }
 
         /// <summary>

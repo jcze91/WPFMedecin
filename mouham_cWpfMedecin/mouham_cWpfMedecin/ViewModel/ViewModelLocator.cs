@@ -33,6 +33,7 @@ namespace mouham_cWpfMedecin.ViewModel
         public const string AddPatientPageKey = "AddPatientView";
         public const string UsersPageKey = "UsersView";
         public const string PatientsPageKey = "PatientsView";
+        public const string AddObservationPageKey = "AddObservationView";
 
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
@@ -48,69 +49,86 @@ namespace mouham_cWpfMedecin.ViewModel
             SimpleIoc.Default.Register<AddUserViewModel>();
             SimpleIoc.Default.Register<AddPatientViewModel>();
             SimpleIoc.Default.Register<ObservationsViewModel>();
+            SimpleIoc.Default.Register<AddObservationViewModel>();
 
             var navigationService = new ModernNavigationService();
             var sessionService = new SessionService();
+
             navigationService.Configure(ViewModelLocator.ObservationsPageKey, new Uri("View/ObservationsControl.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.AddUserPageKey, new Uri("View/AddUserView.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.AddPatientPageKey, new Uri("View/AddPatientView.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.UsersPageKey, new Uri("View/UsersControl.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.PatientsPageKey, new Uri("View/PatientsControl.xaml", UriKind.Relative));
+            navigationService.Configure(ViewModelLocator.AddObservationPageKey, new Uri("View/AddObservationView.xaml", UriKind.Relative));
 
             SimpleIoc.Default.Register<IModernNavigationService>(() => navigationService);
             SimpleIoc.Default.Register<ISessionService>(() => sessionService);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public LoginViewModel Login
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<LoginViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<LoginViewModel>(); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public PortalViewModel Portal
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<PortalViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<PortalViewModel>(); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public UsersViewModel Users
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<UsersViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<UsersViewModel>(); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public PatientsViewModel Patients
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<PatientsViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<PatientsViewModel>(); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AddUserViewModel AddUser
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<AddUserViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<AddUserViewModel>(); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AddPatientViewModel AddPatient
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<AddPatientViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<AddPatientViewModel>(); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ObservationsViewModel Observations
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<ObservationsViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<ObservationsViewModel>(); }
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AddObservationViewModel AddObservation
+        {
+            get { return ServiceLocator.Current.GetInstance<AddObservationViewModel>(); }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

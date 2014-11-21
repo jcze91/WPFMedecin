@@ -54,7 +54,8 @@ namespace mouham_cWpfMedecin.ViewModel
         /// Get or sets the role of current user.
         /// </summary>
         /// <value>The user role</value>
-        public string Role {
+        public string Role
+        {
             get { return _role; }
             set { Set(ref _role, value, "Role"); }
         }

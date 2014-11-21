@@ -36,10 +36,9 @@
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical">
             <DataGrid Name="observations" AlternatingRowBackground="AliceBlue"  AutoGenerateColumns="False" 
-                              DataContext="{Binding Patient.Observations}"
-                              IsReadOnly="True" ItemsSource="{Binding}">
+                              IsReadOnly="True" ItemsSource="{Binding Patient.Observations}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Date}" Header="Observations" Width="*" />
+                    <DataGridTextColumn Binding="{Binding Date}" Header="Date"/>
                 </DataGrid.Columns>
             </DataGrid>
             <mui:ModernButton  Content="ajouter une observation" Width="200"  Grid.Column="0" Grid.ColumnSpan="2" Height="28"
