@@ -70,7 +70,7 @@ namespace mouham_cWpfMedecin.ViewModel
         public LoginViewModel Login
         {
             get { return ServiceLocator.Current.GetInstance<LoginViewModel>(); }
-            }
+        }
 
         /// <summary>
         /// 
@@ -78,7 +78,7 @@ namespace mouham_cWpfMedecin.ViewModel
         public PortalViewModel Portal
         {
             get { return ServiceLocator.Current.GetInstance<PortalViewModel>(); }
-            }
+        }
 
         /// <summary>
         /// 
@@ -86,7 +86,7 @@ namespace mouham_cWpfMedecin.ViewModel
         public UsersViewModel Users
         {
             get { return ServiceLocator.Current.GetInstance<UsersViewModel>(); }
-            }
+        }
 
         /// <summary>
         /// 
@@ -111,12 +111,14 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             get { return ServiceLocator.Current.GetInstance<AddPatientViewModel>(); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public UserProfileViewModel UserProfile
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<UserProfileViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<UserProfileViewModel>(); }
+        }
 
         /// <summary>
         /// 
@@ -125,7 +127,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             get { return ServiceLocator.Current.GetInstance<AddObservationViewModel>(); }
         }
-        
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
