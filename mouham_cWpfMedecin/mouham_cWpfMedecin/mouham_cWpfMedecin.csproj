@@ -107,8 +107,8 @@
     <Compile Include="ViewModel\AddPatientViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\ModernViewModelBase.cs" />
+    <Compile Include="ViewModel\UserProfileViewModel.cs" />
     <Compile Include="ViewModel\ObervableCollection.cs" />
-    <Compile Include="ViewModel\ObservationsViewModel.cs" />
     <Compile Include="ViewModel\PortalViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\PatientsViewModel.cs" />
@@ -123,8 +123,8 @@
     <Compile Include="View\AddUserView.xaml.cs">
       <DependentUpon>AddUserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ObservationsControl.xaml.cs">
-      <DependentUpon>ObservationsControl.xaml</DependentUpon>
+    <Compile Include="View\UserProfileControl.xaml.cs">
+      <DependentUpon>UserProfileControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UsersControl.xaml.cs">
       <DependentUpon>UsersControl.xaml</DependentUpon>
@@ -234,7 +234,7 @@
       <SubType>Form</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ObservationsControl.xaml">
+    <Page Include="View\UserProfileControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

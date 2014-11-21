@@ -45,11 +45,7 @@ namespace mouham_cWpfMedecin.ViewModel
             set { Set(ref _selectedPatient, value, "SelectedPatient"); }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public ICommand SeeObservationsCommand { get; private set; }
-
+        public ICommand SeeUserProfileCommand { get; private set; }
         /// <summary>
         /// 
         /// </summary>
@@ -73,9 +69,9 @@ namespace mouham_cWpfMedecin.ViewModel
 
                 _modernNavigationService = modernNavigationService;
                 _servicePatientClient = new ServicePatientClient();
-
+                
                 LoadedCommand = new RelayCommand(LoadData);
-                SeeObservationsCommand = new RelayCommand(SeeObservations);
+                SeeUserProfileCommand = new RelayCommand(SeeUserProfile);
                 AddPatientCommand = new RelayCommand(AddPatient);
                 DeletePatientCommand = new RelayCommand(DeletePatient);
             }
@@ -104,13 +100,10 @@ namespace mouham_cWpfMedecin.ViewModel
             _modernNavigationService.NavigateTo(ViewModelLocator.AddPatientPageKey);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        void SeeObservations()
+        void SeeUserProfile()
         {
             if (SelectedPatient != null)
-                _modernNavigationService.NavigateTo(ViewModelLocator.ObservationsPageKey, SelectedPatient);
+                _modernNavigationService.NavigateTo(ViewModelLocator.UserProfilePageKey, SelectedPatient);
         }
 
         /// <summary>
@@ -126,7 +119,11 @@ namespace mouham_cWpfMedecin.ViewModel
                     Content = String.Format("Voulez-vous supprimer le patient {0} {1} ?", SelectedPatient.Name, SelectedPatient.Firstname)
                 };
 
-                dialog.Buttons = new Button[] { dialog.CancelButton, dialog.YesButton };
+                Button cancel = dialog.CancelButton;
+                cancel.Content = "Annuler";
+                Button yes = dialog.YesButton;
+                yes.Content = "Oui";
+                dialog.Buttons = new Button[] { cancel, yes };
                 dialog.ShowDialog();
 
                 if (dialog.MessageBoxResult == MessageBoxResult.Yes && await _servicePatientClient.DeletePatientAsync(SelectedPatient.Id))

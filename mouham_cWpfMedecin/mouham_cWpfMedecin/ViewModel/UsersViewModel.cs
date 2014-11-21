@@ -98,7 +98,11 @@ namespace mouham_cWpfMedecin.ViewModel
                     Content = String.Format("Voulez-vous supprimer l'utilisateur {0} {1} ?", SelectedUser.Name, SelectedUser.Firstname)
                 };
 
-                dialog.Buttons = new Button[] { dialog.CancelButton, dialog.YesButton };
+                Button cancel = dialog.CancelButton;
+                cancel.Content = "Annuler";
+                Button yes = dialog.YesButton;
+                yes.Content = "Oui";
+                dialog.Buttons = new Button[] { cancel, yes };
                 dialog.ShowDialog();
 
                 if (dialog.MessageBoxResult == MessageBoxResult.Yes && await _serviceUserClient.DeleteUserAsync(SelectedUser.Login))

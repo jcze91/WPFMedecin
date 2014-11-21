@@ -16,18 +16,18 @@ using System.Windows.Shapes;
 namespace mouham_cWpfMedecin.View
 {
     /// <summary>
-    /// Interaction logic for ObservationsControl.xaml
+    /// Interaction logic for UserProfileControl.xaml
     /// </summary>
-    public partial class ObservationsControl : UserControl
+    public partial class UserProfileControl : UserControl
     {
-        public ObservationsControl()
+        public UserProfileControl()
         {
             InitializeComponent();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            observations.SelectedIndex = 0;
+            Observations.SelectedIndex = 0;
         }
     }
 }
