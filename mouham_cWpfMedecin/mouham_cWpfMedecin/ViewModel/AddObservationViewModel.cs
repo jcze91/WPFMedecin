@@ -244,7 +244,6 @@ namespace mouham_cWpfMedecin.ViewModel
                 if (await _serviceObservationClient.AddObservationAsync(Patient.Id, obs))
                 {
                     Cleanup();
-                    App.Current.Dispatcher.BeginInvoke(delegate() =>{});
                     _modernNavigationService.GoBack();
                 }
                 else
