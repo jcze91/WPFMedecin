@@ -78,6 +78,7 @@
     <Compile Include="Helpers\RoleToVisibilityConverter.cs" />
     <Compile Include="Helpers\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
+    <Compile Include="Helpers\StringToIntValidationRule.cs" />
     <Compile Include="Service References\ServiceLive\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -106,6 +107,7 @@
     <Compile Include="ViewModel\AddPatientViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\ModernViewModelBase.cs" />
+    <Compile Include="ViewModel\ObervableCollection.cs" />
     <Compile Include="ViewModel\ObservationsViewModel.cs" />
     <Compile Include="ViewModel\PortalViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />

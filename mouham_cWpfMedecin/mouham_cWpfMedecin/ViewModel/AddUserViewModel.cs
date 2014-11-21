@@ -99,15 +99,19 @@ namespace mouham_cWpfMedecin.ViewModel
             set { Set(ref _role, value, "Role"); }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public ICommand ComfirmCommand { get; set; }
 
+
+        private readonly ICommand _comfirmCommand;
         /// <summary>
         /// 
         /// </summary>
-        public ICommand BrowseCommand { get; set; }
+        public ICommand ComfirmCommand { get { return _comfirmCommand; } }
+        
+        private readonly ICommand _browseCommand;
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand BrowseCommand { get { return _browseCommand; } }
 
         /// <summary>
         /// Initializes a new instance of the AddUserViewModel class.
@@ -118,8 +122,8 @@ namespace mouham_cWpfMedecin.ViewModel
             _userService = new ServiceUserClient();
             _modernNavigationService = modernNavigationService;
 
-            ComfirmCommand = new RelayCommand(() => AddUser());
-            BrowseCommand = new RelayCommand(() => SelectFile());
+            _comfirmCommand = new RelayCommand(AddUser);
+            _browseCommand = new RelayCommand(SelectFile);
             LoadedCommand = new RelayCommand(LoadData);
         }
         private void LoadData()

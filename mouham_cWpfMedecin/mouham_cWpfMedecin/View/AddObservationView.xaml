@@ -5,10 +5,151 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        xmlns:h="clr-namespace:mouham_cWpfMedecin.Helpers"
         mc:Ignorable="d" 
         d:DesignHeight="200" d:DesignWidth="500"
         DataContext="{Binding AddObservation, Source={StaticResource Locator}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="NavigatedTo">
+            <i:InvokeCommandAction Command="{Binding NavigatedToCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="NavigatedFrom">
+            <i:InvokeCommandAction Command="{Binding NavigatedFromCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="NavigatingFrom">
+            <i:InvokeCommandAction Command="{Binding NavigatingFromCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="FragmentNavigation">
+            <i:InvokeCommandAction Command="{Binding FragmentNavigationCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="IsVisibleChanged">
+            <i:InvokeCommandAction Command="{Binding IsVisibleChangedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="8 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.ColumnSpan="2" Text="OBSERVATION :" FontWeight="ExtraBlack" Margin="8"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Date : " Margin="12 8" FontFamily="Segoe UI Light" />
+            <DatePicker Grid.Column="1" Grid.Row="1" SelectedDate="{Binding SelectedDate}"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Comment : " Margin="12 8" FontFamily="Segoe UI Light" />
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Weight : " Margin="12 8" FontFamily="Segoe UI Light" />
+            <TextBox Grid.Column="1" Grid.Row="3">
+                <TextBox.Text>
+                    <Binding Path="Weight" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <h:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="BloodPressure : " Margin="12 8" FontFamily="Segoe UI Light" />
+            <TextBox Grid.Column="1" Grid.Row="4">
+                <TextBox.Text>
+                    <Binding Path="BloodPressure" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <h:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="8 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="PRESCRIPTIONS :" FontWeight="ExtraBlack" Margin="8"/>
+
+            <TextBox Grid.Row="1" Text="{Binding CurrentPrescription, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <mui:ModernButton  Content="ajouter" Grid.Row="2" Margin="8"
+                               IconData="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z " HorizontalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding AddPrescriptionCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </mui:ModernButton>
+            <ListBox Grid.Row="3" ItemsSource="{Binding Prescriptions}" />
+        </Grid>
+
+        <Grid Grid.Column="2" Margin="8 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="IMAGES :" FontWeight="ExtraBlack" Margin="8"/>
+
+            <TextBox Grid.Row="1" Text="{Binding PictureFilename, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBox Grid.Column="1" Grid.Row="5" Name="Picture" Margin="0,0,74,0" Text="{Binding PictureFilename, Mode=TwoWay}"/>
+            <Button  Content="Browse" Grid.Row="2">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding BrowseCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <mui:ModernButton  Content="ajouter" Grid.Row="3" Margin="8"
+                               IconData="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z " HorizontalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding AddPictureCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </mui:ModernButton>
+            <ListBox Grid.Row="4" ItemsSource="{Binding Pictures}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right" Margin="0 8 8 0">
+            <mui:ModernButton  Content="ajouter l'observation"
+                               IconData="F1 M 57.3958,49.0833L 47.5,49.0833L 42.75,63.3333L 40.375,63.3333L 37.6041,26.5209L 34.4375,49.0833L 28.5,49.0833L 22.9583,45.5208L 19,49.0833L 11.0833,49.0833L 11.0833,46.3125L 19,46.3125L 22.9583,42.75L 28.5,46.3125L 31.5883,46.3125L 36.4166,11.4792L 39.1875,11.875L 42.7499,55.0209L 46.3125,46.3125L 57,46.3125L 63.3333,41.1667L 66.5,41.1667L 66.5,43.9375L 63.3333,43.9375L 57.3958,49.0833 Z ">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding AddObservationCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </mui:ModernButton>
+        </StackPanel>
     </Grid>
 </UserControl>
