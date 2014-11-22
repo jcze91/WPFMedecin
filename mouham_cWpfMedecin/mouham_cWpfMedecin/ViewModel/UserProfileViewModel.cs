@@ -27,6 +27,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// 
         /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
+        private readonly ISessionService _sessionService;
         private Patient _patient;
         private IServiceObservation _serviceObservation;
         private IServicePatient _servicePatient;
@@ -86,11 +87,10 @@ namespace mouham_cWpfMedecin.ViewModel
             IServiceObservation serviceObservation,
             IServicePatient servicePatient)
         {
-            this.Role = sessionService.Role;
-
             _modernNavigationService = modernNavigationService;
             _serviceObservation = serviceObservation;
             _servicePatient = servicePatient;
+            _sessionService = sessionService;
 
             AddObservationCommand = new RelayCommand(AddObservation);
             LoadedCommand = new RelayCommand(LoadData);
@@ -106,11 +106,12 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             try
             {
+                this.Role = _sessionService.Role;
                 var p = _modernNavigationService.Parameter as Patient;
+                if (p == null)
+                    p = _modernNavigationService.LastParameter as Patient;
                 if (p != null)
-                {
                     Patient = await _servicePatient.GetPatientAsync(p.Id);
-                }
                 this.HeartChart.Clear();
                 _heartValues.Clear();
                 _canRefreshHeart = !_canRefreshHeart;

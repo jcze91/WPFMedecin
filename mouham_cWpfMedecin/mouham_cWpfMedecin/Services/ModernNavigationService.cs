@@ -54,6 +54,14 @@ namespace mouham_cWpfMedecin.Services
         public object Parameter { get; private set; }
 
         /// <summary>
+        /// Gets the last not nil parameter.
+        /// </summary>
+        /// <value>
+        /// The parameter.
+        /// </value>
+        public object LastParameter { get; private set; }
+
+        /// <summary>
         /// The go back.
         /// </summary>
         public void GoBack()
@@ -102,6 +110,8 @@ namespace mouham_cWpfMedecin.Services
                     frame.Source = _pagesByKey[pageKey];
                 }
                 Parameter = parameter;
+                if (parameter != null)
+                    LastParameter = parameter;
                 _historic.Add(pageKey);
                 CurrentPageKey = pageKey;
             }

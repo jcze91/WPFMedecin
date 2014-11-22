@@ -23,5 +23,12 @@ namespace mouham_cWpfMedecin.Services
         /// The parameter.
         /// </value>
         object Parameter { get; }
+        /// <summary>
+        /// Gets the last not nil parameter.
+        /// </summary>
+        /// <value>
+        /// The parameter.
+        /// </value>
+        object LastParameter { get; }
     }
 }
