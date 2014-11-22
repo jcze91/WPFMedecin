@@ -11,7 +11,7 @@ using System.Windows.Input;
 namespace mouham_cWpfMedecin.ViewModel
 {
     /// <summary>
-    /// 
+    /// ViewModel for users
     /// </summary>
     public class UsersViewModel : ModernViewModelBase
     {

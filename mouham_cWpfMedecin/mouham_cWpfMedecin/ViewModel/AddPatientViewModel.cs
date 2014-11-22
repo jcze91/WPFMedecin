@@ -10,26 +10,23 @@ using System.Windows.Input;
 namespace mouham_cWpfMedecin.ViewModel
 {
     /// <summary>
-    /// This class contains properties that a View can data bind to.
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
+    /// View model of Patient insertion view
     /// </summary>
     public class AddPatientViewModel : ModernViewModelBase
     {
         /// <summary>
-        /// 
+        /// Navigation service
         /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
 
         /// <summary>
-        /// 
+        /// Patient service WCF
         /// </summary>
         private IServicePatient _servicePatient;
 
         private string _name;
         /// <summary>
-        /// 
+        /// Patient name
         /// </summary>
         public string Name
         {
@@ -39,7 +36,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _firstname;
         /// <summary>
-        /// 
+        /// Patient firstname
         /// </summary>
         public string Firstname
         {
@@ -49,7 +46,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private DateTime _birthday;
         /// <summary>
-        /// 
+        /// Patient birthday
         /// </summary>
         public DateTime Birthday
         {
@@ -58,7 +55,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Command to add patient
         /// </summary>
         public ICommand ComfirmCommand { get; set; }
 
@@ -73,10 +70,6 @@ namespace mouham_cWpfMedecin.ViewModel
             ComfirmCommand = new RelayCommand(AddPatient);
             LoadedCommand = new RelayCommand(LoadData);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
         private void LoadData()
         {
             this.Name = "";
@@ -85,7 +78,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Add patient method
         /// </summary>
         private async void AddPatient()
         {

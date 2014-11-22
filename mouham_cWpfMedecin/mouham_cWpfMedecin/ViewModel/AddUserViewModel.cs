@@ -10,28 +10,23 @@ using System.Windows.Input;
 namespace mouham_cWpfMedecin.ViewModel
 {
     /// <summary>
-    /// 
+    /// View model for User insertion view
     /// </summary>
     public class AddUserViewModel : ModernViewModelBase
     {
         /// <summary>
-        /// 
+        /// Navigation service
         /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
 
         /// <summary>
-        /// 
+        /// User service WCF
         /// </summary>
         private IServiceUser _serviceUser;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private BackgroundWorker _connectWorker;
-
         private string _login;
         /// <summary>
-        /// 
+        /// User login
         /// </summary>
         public string Login
         {
@@ -41,7 +36,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _pwd;
         /// <summary>
-        /// 
+        /// User password
         /// </summary>
         public string Pwd
         {
@@ -51,7 +46,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _name;
         /// <summary>
-        /// 
+        /// User name
         /// </summary>
         public string Name
         {
@@ -61,7 +56,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _firstname;
         /// <summary>
-        /// 
+        /// User firstname
         /// </summary>
         public string Firstname
         {
@@ -71,7 +66,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private Byte[] _picture;
         /// <summary>
-        /// 
+        /// User picture
         /// </summary>
         public Byte[] Picture
         {
@@ -81,7 +76,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _pictureFilename;
         /// <summary>
-        /// 
+        /// Picture filename
         /// </summary>
         public string PictureFilename
         {
@@ -91,7 +86,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _role;
         /// <summary>
-        /// 
+        /// User role
         /// </summary>
         public string Role
         {
@@ -103,18 +98,18 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private readonly ICommand _comfirmCommand;
         /// <summary>
-        /// 
+        /// Command to add user
         /// </summary>
         public ICommand ComfirmCommand { get { return _comfirmCommand; } }
         
         private readonly ICommand _browseCommand;
         /// <summary>
-        /// 
+        /// Command to search an file for Picture
         /// </summary>
         public ICommand BrowseCommand { get { return _browseCommand; } }
 
         /// <summary>
-        /// Initializes a new instance of the AddUserViewModel class.
+        /// Constructor
         /// </summary>
         /// <param name="modernNavigationService"></param>
         public AddUserViewModel(IModernNavigationService modernNavigationService, IServiceUser serviceUser)
@@ -136,6 +131,9 @@ namespace mouham_cWpfMedecin.ViewModel
             this.PictureFilename = "";
         }
 
+        /// <summary>
+        /// File picker method
+        /// </summary>
         private void SelectFile()
         {
             // Create OpenFileDialog
@@ -158,6 +156,9 @@ namespace mouham_cWpfMedecin.ViewModel
             }
         }
 
+        /// <summary>
+        /// Add user method
+        /// </summary>
         private async void AddUser()
         {
             User user = new User();

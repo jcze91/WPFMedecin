@@ -8,23 +8,23 @@ using System.Windows.Input;
 namespace mouham_cWpfMedecin.ViewModel
 {
     /// <summary>
-    /// 
+    /// View model for login view
     /// </summary>
     public class LoginViewModel : ViewModelBase
     {
         /// <summary>
-        /// 
+        /// User service WCF
         /// </summary>
         private IServiceUser _serviceUser;
 
         /// <summary>
-        /// 
+        /// Session service
         /// </summary>
         private ISessionService _sessionService;
 
         private string _login;
         /// <summary>
-        /// 
+        /// User login
         /// </summary>
         public string Login
         {
@@ -34,7 +34,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private bool _isConnecting;
         /// <summary>
-        /// 
+        /// Button on/off
         /// </summary>
         public bool IsConnecting
         {
@@ -44,7 +44,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _password;
         /// <summary>
-        /// 
+        /// User password
         /// </summary>
         public string Password
         {
@@ -54,7 +54,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private bool _closeTrigger;
         /// <summary>
-        /// 
+        /// Attribute for closing the window
         /// </summary>
         public bool CloseTrigger
         {
@@ -64,7 +64,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _errorText;
         /// <summary>
-        /// 
+        /// Connection error text
         /// </summary>
         public string ErrorText
         {
@@ -73,12 +73,12 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Command to login
         /// </summary>
         public ICommand LoginCommand { get; set; }
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         /// <param name="sessionService"></param>
         /// <param name="serviceUser"></param>
@@ -95,7 +95,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Login method
         /// </summary>
         async private void LoginExecute()
         {
@@ -120,7 +120,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Button on/off method
         /// </summary>
         /// <returns></returns>
         private bool CanLoginExecute()
