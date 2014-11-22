@@ -15,7 +15,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private ServiceUserClient _serviceUserClient;
+        private IServiceUser _serviceUser;
 
         /// <summary>
         /// 
@@ -81,12 +81,12 @@ namespace mouham_cWpfMedecin.ViewModel
         /// 
         /// </summary>
         /// <param name="sessionService"></param>
-        public LoginViewModel(ISessionService sessionService)
+        public LoginViewModel(ISessionService sessionService, IServiceUser serviceUser)
         {
             _sessionService = sessionService;
             Login = "";
             ErrorText = "";
-            _serviceUserClient = new ServiceUserClient();
+            _serviceUser = serviceUser;
             IsConnecting = false;
 
             LoginCommand = new RelayCommand(LoginExecute, CanLoginExecute);
@@ -100,7 +100,7 @@ namespace mouham_cWpfMedecin.ViewModel
             ErrorText = "";
             IsConnecting = true;
 
-            if (await _serviceUserClient.ConnectAsync(Login, Password))
+            if (await _serviceUser.ConnectAsync(Login, Password))
             {
 
                 _sessionService.RegisterSession(Login);

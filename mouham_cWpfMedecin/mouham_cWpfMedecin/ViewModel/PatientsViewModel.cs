@@ -1,9 +1,12 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using mouham_cWpfMedecin.ServiceLive;
 using mouham_cWpfMedecin.ServicePatient;
 using mouham_cWpfMedecin.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -23,7 +26,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private IServicePatient _servicePatientClient;
+        private IServicePatient _servicePatient;
 
         private ObservableCollection<Patient> _patients;
         /// <summary>
@@ -61,21 +64,17 @@ namespace mouham_cWpfMedecin.ViewModel
         /// </summary>
         /// <param name="modernNavigationService"></param>
         /// <param name="sessionService"></param>
-        public PatientsViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
+        public PatientsViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService, IServicePatient servicePatient)
         {
-            try
-            {
-                this.Role = sessionService.Role;
+            this.Role = sessionService.Role;
 
-                _modernNavigationService = modernNavigationService;
-                _servicePatientClient = new ServicePatientClient();
+            _modernNavigationService = modernNavigationService;
+            _servicePatient = servicePatient;
                 
-                LoadedCommand = new RelayCommand(LoadData);
-                SeeUserProfileCommand = new RelayCommand(SeeUserProfile);
-                AddPatientCommand = new RelayCommand(AddPatient);
-                DeletePatientCommand = new RelayCommand(DeletePatient);
-            }
-            catch (Exception e) { }
+            LoadedCommand = new RelayCommand(LoadData);
+            SeeUserProfileCommand = new RelayCommand(SeeUserProfile);
+            AddPatientCommand = new RelayCommand(AddPatient);
+            DeletePatientCommand = new RelayCommand(DeletePatient);
         }
 
         /// <summary>
@@ -85,7 +84,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             try
             {
-                Patients = new ObservableCollection<Patient>(await _servicePatientClient.GetListPatientAsync());
+                Patients = new ObservableCollection<Patient>(await _servicePatient.GetListPatientAsync());
             }
             catch
             {
@@ -126,7 +125,7 @@ namespace mouham_cWpfMedecin.ViewModel
                 dialog.Buttons = new Button[] { cancel, yes };
                 dialog.ShowDialog();
 
-                if (dialog.MessageBoxResult == MessageBoxResult.Yes && await _servicePatientClient.DeletePatientAsync(SelectedPatient.Id))
+                if (dialog.MessageBoxResult == MessageBoxResult.Yes && await _servicePatient.DeletePatientAsync(SelectedPatient.Id))
                     Patients.Remove(SelectedPatient);
             }
         }

@@ -22,7 +22,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private IServiceUser _userService;
+        private IServiceUser _serviceUser;
 
         /// <summary>
         /// 
@@ -117,9 +117,9 @@ namespace mouham_cWpfMedecin.ViewModel
         /// Initializes a new instance of the AddUserViewModel class.
         /// </summary>
         /// <param name="modernNavigationService"></param>
-        public AddUserViewModel(IModernNavigationService modernNavigationService)
+        public AddUserViewModel(IModernNavigationService modernNavigationService, IServiceUser serviceUser)
         {
-            _userService = new ServiceUserClient();
+            _serviceUser = serviceUser;
             _modernNavigationService = modernNavigationService;
 
             _comfirmCommand = new RelayCommand(AddUser);
@@ -173,7 +173,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
             try
             {
-                result = await _userService.AddUserAsync(user);
+                result = await _serviceUser.AddUserAsync(user);
             }
             catch { }
 

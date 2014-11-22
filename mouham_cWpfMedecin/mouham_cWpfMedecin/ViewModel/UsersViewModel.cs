@@ -23,7 +23,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private IServiceUser _serviceUserClient;
+        private IServiceUser _serviceUser;
 
         private ObservableCollection<User> _users;
         /// <summary>
@@ -60,21 +60,16 @@ namespace mouham_cWpfMedecin.ViewModel
         /// </summary>
         /// <param name="modernNavigationService"></param>
         /// <param name="sessionService"></param>
-        public UsersViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
+        public UsersViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService, IServiceUser serviceUser)
         {
-            try
-            {
-                this.Role = sessionService.Role;
+            this.Role = sessionService.Role;
 
-                _modernNavigationService = modernNavigationService;
-                _serviceUserClient = new ServiceUserClient();
+            _modernNavigationService = modernNavigationService;
+            _serviceUser = serviceUser;
 
-                LoadedCommand = new RelayCommand(LoadData);
-                AddUserCommand = new RelayCommand(AddUser);
-                DeleteUserCommand = new RelayCommand(DeleteUser);
-
-            }
-            catch { }
+            LoadedCommand = new RelayCommand(LoadData);
+            AddUserCommand = new RelayCommand(AddUser);
+            DeleteUserCommand = new RelayCommand(DeleteUser);
         }
 
         /// <summary>
@@ -105,7 +100,7 @@ namespace mouham_cWpfMedecin.ViewModel
                 dialog.Buttons = new Button[] { cancel, yes };
                 dialog.ShowDialog();
 
-                if (dialog.MessageBoxResult == MessageBoxResult.Yes && await _serviceUserClient.DeleteUserAsync(SelectedUser.Login))
+                if (dialog.MessageBoxResult == MessageBoxResult.Yes && await _serviceUser.DeleteUserAsync(SelectedUser.Login))
                     Users.Remove(SelectedUser);
             }
         }
@@ -117,7 +112,7 @@ namespace mouham_cWpfMedecin.ViewModel
         {
             try
             {
-                Users = new ObservableCollection<User>(await _serviceUserClient.GetListUserAsync());
+                Users = new ObservableCollection<User>(await _serviceUser.GetListUserAsync());
             }
             catch { }
         }

@@ -25,7 +25,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private IServicePatient _servicePatientClient;
+        private IServicePatient _servicePatient;
 
         private string _name;
         /// <summary>
@@ -66,9 +66,9 @@ namespace mouham_cWpfMedecin.ViewModel
         /// Initializes a new instance of the AddPatientViewModel class.
         /// </summary>
         /// <param name="modernNavigationService"></param>
-        public AddPatientViewModel(IModernNavigationService modernNavigationService)
+        public AddPatientViewModel(IModernNavigationService modernNavigationService, IServicePatient servicePatient)
         {
-            _servicePatientClient = new ServicePatientClient();
+            _servicePatient = servicePatient;
             _modernNavigationService = modernNavigationService;
             ComfirmCommand = new RelayCommand(AddPatient);
             LoadedCommand = new RelayCommand(LoadData);
@@ -99,7 +99,7 @@ namespace mouham_cWpfMedecin.ViewModel
             int length = 0;
             try
             {
-                length = _servicePatientClient.GetListPatient().Length;
+                length = _servicePatient.GetListPatient().Length;
             }
             catch { }
 
@@ -107,7 +107,7 @@ namespace mouham_cWpfMedecin.ViewModel
             patient.Observations = new List<Observation>().ToArray();
             try
             {
-                result = await _servicePatientClient.AddPatientAsync(patient);
+                result = await _servicePatient.AddPatientAsync(patient);
             }
             catch { }
 

@@ -28,8 +28,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
         private Patient _patient;
-        private ServiceObservationClient _serviceObservationClient;
-        private ServiceLiveClient _serviceLiveClient;
+        private IServiceObservation _serviceObservation;
         private string _heart;
         private double _temperature;
         private DateTime _startTime;
@@ -80,26 +79,19 @@ namespace mouham_cWpfMedecin.ViewModel
         /// </summary>
         /// <param name="modernNavigationService"></param>
         /// <param name="sessionService"></param>
-        public UserProfileViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService)
+        public UserProfileViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService,
+                                    IServiceObservation serviceObservation)
         {
-            try
-            {
-                this.Role = sessionService.Role;
+            this.Role = sessionService.Role;
 
-                _modernNavigationService = modernNavigationService;
-                _serviceObservationClient = new ServiceObservationClient();
-                AddObservationCommand = new RelayCommand(AddObservation);
-                OpenWideImageCommand = new RelayCommand(OpenWideImage);
-                LoadedCommand = new RelayCommand(LoadData);
-                _heartValues = new List<KeyValuePair<TimeSpan, double>>();
-                HeartChart = new ObservableCollection<IPlotterElement>();
-
-                _serviceLiveClient = new ServiceLiveClient(new InstanceContext(this), "WSDualHttpBinding_IServiceLive");
-                _serviceLiveClient.Open();
-                _serviceLiveClient.SubscribeAsync();
-                _canRefreshHeart = false;
-            }
-            catch { }
+            _modernNavigationService = modernNavigationService;
+            _serviceObservation = serviceObservation;
+            AddObservationCommand = new RelayCommand(AddObservation);
+            OpenWideImageCommand = new RelayCommand(OpenWideImage);
+            LoadedCommand = new RelayCommand(LoadData);
+            _heartValues = new List<KeyValuePair<TimeSpan, double>>();
+            HeartChart = new ObservableCollection<IPlotterElement>();
+            _canRefreshHeart = false;
         }
 
         /// <summary>

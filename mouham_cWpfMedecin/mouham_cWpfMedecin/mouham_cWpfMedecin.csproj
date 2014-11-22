@@ -112,8 +112,6 @@
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\ModernViewModelBase.cs" />
     <Compile Include="ViewModel\UserProfileViewModel.cs" />
-    <Compile Include="ViewModel\ObervableCollection.cs" />
-    <Compile Include="ViewModel\PortalViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\PatientsViewModel.cs" />
     <Compile Include="ViewModel\UsersViewModel.cs" />

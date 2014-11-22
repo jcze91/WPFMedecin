@@ -14,8 +14,13 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using mouham_cWpfMedecin.ServiceLive;
+using mouham_cWpfMedecin.ServiceObservation;
+using mouham_cWpfMedecin.ServicePatient;
 using mouham_cWpfMedecin.Services;
+using mouham_cWpfMedecin.ServiceUser;
 using System;
+using System.ServiceModel;
 
 namespace mouham_cWpfMedecin.ViewModel
 {
@@ -41,9 +46,8 @@ namespace mouham_cWpfMedecin.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
+            
             SimpleIoc.Default.Register<LoginViewModel>();
-            SimpleIoc.Default.Register<PortalViewModel>();
             SimpleIoc.Default.Register<PatientsViewModel>();
             SimpleIoc.Default.Register<UsersViewModel>();
             SimpleIoc.Default.Register<AddUserViewModel>();
@@ -53,6 +57,10 @@ namespace mouham_cWpfMedecin.ViewModel
 
             var navigationService = new ModernNavigationService();
             var sessionService = new SessionService();
+            var serviceUser = new ServiceUserClient();
+            var serviceObservation = new ServiceObservationClient();
+            var servicePatient = new ServicePatientClient();
+
             navigationService.Configure(ViewModelLocator.UserProfilePageKey, new Uri("View/UserProfileControl.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.AddUserPageKey, new Uri("View/AddUserView.xaml", UriKind.Relative));
             navigationService.Configure(ViewModelLocator.AddPatientPageKey, new Uri("View/AddPatientView.xaml", UriKind.Relative));
@@ -62,6 +70,14 @@ namespace mouham_cWpfMedecin.ViewModel
 
             SimpleIoc.Default.Register<IModernNavigationService>(() => navigationService);
             SimpleIoc.Default.Register<ISessionService>(() => sessionService);
+            SimpleIoc.Default.Register<IServicePatient>(() => servicePatient);
+            SimpleIoc.Default.Register<IServiceUser>(() => serviceUser);
+            SimpleIoc.Default.Register<IServiceObservation>(() => serviceObservation);
+
+            UserProfileViewModel userProfileViewModel = SimpleIoc.Default.GetInstance<UserProfileViewModel>();
+            var serviceLive = new ServiceLiveClient(new InstanceContext(userProfileViewModel), "WSDualHttpBinding_IServiceLive");
+            serviceLive.Open();
+            serviceLive.SubscribeAsync();
         }
 
         /// <summary>
@@ -70,14 +86,6 @@ namespace mouham_cWpfMedecin.ViewModel
         public LoginViewModel Login
         {
             get { return ServiceLocator.Current.GetInstance<LoginViewModel>(); }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public PortalViewModel Portal
-        {
-            get { return ServiceLocator.Current.GetInstance<PortalViewModel>(); }
         }
 
         /// <summary>

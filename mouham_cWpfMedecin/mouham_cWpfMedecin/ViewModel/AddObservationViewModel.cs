@@ -24,7 +24,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private IServiceObservation _serviceObservationClient;
+        private IServiceObservation _serviceObservation;
 
         /// <summary>
         /// 
@@ -140,10 +140,10 @@ namespace mouham_cWpfMedecin.ViewModel
         /// 
         /// </summary>
         /// <param name="modernNavigationService"></param>
-        public AddObservationViewModel(IModernNavigationService modernNavigationService)
+        public AddObservationViewModel(IModernNavigationService modernNavigationService, IServiceObservation serviceObservation)
         {
             _modernNavigationService = modernNavigationService;
-            _serviceObservationClient = new ServiceObservationClient();
+            _serviceObservation = serviceObservation;
 
             _prescriptions = new ObservableCollection<string>();
             _pictures = new ObservableCollection<byte[]>();
@@ -241,7 +241,7 @@ namespace mouham_cWpfMedecin.ViewModel
                 obs.Pictures = Pictures.ToArray();
                 obs.Prescription = Prescriptions.ToArray();
 
-                if (await _serviceObservationClient.AddObservationAsync(Patient.Id, obs))
+                if (await _serviceObservation.AddObservationAsync(Patient.Id, obs))
                 {
                     Cleanup();
                     _modernNavigationService.GoBack();
@@ -250,8 +250,8 @@ namespace mouham_cWpfMedecin.ViewModel
                 {
                     var dialog = new ModernDialog
                     {
-                        Title = "Echec",
-                        Content = String.Format("L'opération na pas pu etre effectuée")
+                        Title = "Échec",
+                        Content = String.Format("L'opération n'a pas pu être effectuée")
                     };
 
                     dialog.Buttons = new Button[] { dialog.OkButton };
@@ -262,7 +262,7 @@ namespace mouham_cWpfMedecin.ViewModel
             {
                 var dialog = new ModernDialog
                 {
-                    Title = "Echec",
+                    Title = "Échec",
                     Content = String.Format(e.ToString())
                 };
 
