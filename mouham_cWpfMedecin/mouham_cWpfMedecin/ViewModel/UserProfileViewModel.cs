@@ -24,13 +24,27 @@ namespace mouham_cWpfMedecin.ViewModel
     public class UserProfileViewModel : ModernViewModelBase, IServiceLiveCallback
     {
         /// <summary>
-        /// 
+        /// navigation service
         /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
+
+        /// <summary>
+        /// session service
+        /// </summary>
         private readonly ISessionService _sessionService;
+
+        /// <summary>
+        /// observation service
+        /// </summary>
+        private readonly IServiceObservation _serviceObservation;
+
+        /// <summary>
+        /// patient service
+        /// </summary>
+        private readonly IServicePatient _servicePatient;
+
+
         private Patient _patient;
-        private IServiceObservation _serviceObservation;
-        private IServicePatient _servicePatient;
         private string _heart;
         private double _temperature;
         private DateTime _startTime;
@@ -39,21 +53,26 @@ namespace mouham_cWpfMedecin.ViewModel
         private List<KeyValuePair<TimeSpan, double>> _heartValues;
         private bool _canRefreshHeart;
 
+        /// <summary>
+        /// heart chart
+        /// </summary>
         public ObservableCollection<IPlotterElement> HeartChart
         {
             get { return _heartChart; }
             set { Set(ref _heartChart, value, "HeartChart"); }
         }
+
         /// <summary>
-        /// 
+        /// heart value
         /// </summary>
         public string Heart
         {
             get { return _heart; }
             set { Set(ref _heart, value, "Heart"); }
         }
+
         /// <summary>
-        /// 
+        /// temparature value
         /// </summary>
         public double Temperature
         {
@@ -62,7 +81,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// current patient
         /// </summary>
         public Patient Patient
         {
@@ -71,16 +90,17 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// command to add observation
         /// </summary>
         public ICommand AddObservationCommand { get; set; }
 
         /// <summary>
-        /// 
+        /// constructor of user profile viewmodel
         /// </summary>
-        /// <param name="modernNavigationService"></param>
-        /// <param name="sessionService"></param>
-        /// <param name="serviceObservation"></param>
+        /// <param name="modernNavigationService">navigation service</param>
+        /// <param name="sessionService">session service</param>
+        /// <param name="serviceObservation">observation service</param>
+        /// <param name="servicePatient">patient service</param>
         public UserProfileViewModel(
             IModernNavigationService modernNavigationService,
             ISessionService sessionService,
@@ -100,7 +120,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// load data logic
         /// </summary>
         async private void LoadData()
         {
@@ -121,7 +141,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// receive heart push data and add to chart
         /// </summary>
         public void PushDataHeart(double requestData)
         {
@@ -158,14 +178,15 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// receive temperature push data
         /// </summary>
         public void PushDataTemp(double requestData)
         {
             Temperature = requestData;
         }
+
         /// <summary>
-        /// 
+        /// add observatoin logic
         /// </summary>
         private void AddObservation()
         {

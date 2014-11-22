@@ -16,18 +16,18 @@ namespace mouham_cWpfMedecin.ViewModel
     public class UsersViewModel : ModernViewModelBase
     {
         /// <summary>
-        /// 
+        /// navigation service
         /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
 
         /// <summary>
-        /// 
+        /// user service
         /// </summary>
         private IServiceUser _serviceUser;
 
         private ObservableCollection<User> _users;
         /// <summary>
-        /// 
+        /// collection of user
         /// </summary>
         public ObservableCollection<User> Users
         {
@@ -37,7 +37,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private User _selectedUser;
         /// <summary>
-        /// 
+        /// selected user
         /// </summary>
         public User SelectedUser
         {
@@ -46,20 +46,21 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// command to add user
         /// </summary>
         public ICommand AddUserCommand { get; private set; }
 
         /// <summary>
-        /// 
+        /// command to delete user
         /// </summary>
         public ICommand DeleteUserCommand { get; private set; }
 
         /// <summary>
-        /// 
+        /// constructor os users viewmodel
         /// </summary>
-        /// <param name="modernNavigationService"></param>
-        /// <param name="sessionService"></param>
+        /// <param name="modernNavigationService">navigation service</param>
+        /// <param name="sessionService">session service</param>
+        /// <param name="serviceUser">user service</param>
         public UsersViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService, IServiceUser serviceUser)
         {
             this.Role = sessionService.Role;
@@ -73,7 +74,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// add user logic
         /// </summary>
         void AddUser()
         {
@@ -81,7 +82,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// delete user logic
         /// </summary>
         async void DeleteUser()
         {
@@ -106,7 +107,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// load data logic
         /// </summary>
         async void LoadData()
         {

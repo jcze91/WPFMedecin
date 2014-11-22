@@ -1,12 +1,9 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using mouham_cWpfMedecin.ServiceLive;
 using mouham_cWpfMedecin.ServicePatient;
 using mouham_cWpfMedecin.Services;
 using System;
 using System.Collections.ObjectModel;
-using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,23 +11,23 @@ using System.Windows.Input;
 namespace mouham_cWpfMedecin.ViewModel
 {
     /// <summary>
-    /// 
+    /// ViewModel for patients
     /// </summary>
     public class PatientsViewModel : ModernViewModelBase
     {
         /// <summary>
-        /// 
+        /// navigation service
         /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
 
         /// <summary>
-        /// 
+        /// patient service
         /// </summary>
-        private IServicePatient _servicePatient;
+        private readonly IServicePatient _servicePatient;
 
         private ObservableCollection<Patient> _patients;
         /// <summary>
-        /// 
+        /// collection of patient
         /// </summary>
         public ObservableCollection<Patient> Patients
         {
@@ -40,7 +37,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private Patient _selectedPatient;
         /// <summary>
-        /// 
+        /// selected patient
         /// </summary>
         public Patient SelectedPatient
         {
@@ -48,22 +45,27 @@ namespace mouham_cWpfMedecin.ViewModel
             set { Set(ref _selectedPatient, value, "SelectedPatient"); }
         }
 
-        public ICommand SeeUserProfileCommand { get; private set; }
         /// <summary>
-        /// 
+        /// command to see user profile
+        /// </summary>
+        public ICommand SeeUserProfileCommand { get; private set; }
+
+        /// <summary>
+        /// command to add patient
         /// </summary>
         public ICommand AddPatientCommand { get; private set; }
 
         /// <summary>
-        /// 
+        /// command to delete patient
         /// </summary>
         public ICommand DeletePatientCommand { get; private set; }
 
         /// <summary>
-        /// 
+        /// constructor of patients viewmodel
         /// </summary>
-        /// <param name="modernNavigationService"></param>
-        /// <param name="sessionService"></param>
+        /// <param name="modernNavigationService">navigation service</param>
+        /// <param name="sessionService">session service</param>
+        /// <param name="servicePatient">patient service</param>
         public PatientsViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService, IServicePatient servicePatient)
         {
             this.Role = sessionService.Role;
@@ -78,7 +80,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// load data logic
         /// </summary>
         async void LoadData()
         {
@@ -92,13 +94,16 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// add patient logic
         /// </summary>
         void AddPatient()
         {
             _modernNavigationService.NavigateTo(ViewModelLocator.AddPatientPageKey);
         }
 
+        /// <summary>
+        /// see user profile logic
+        /// </summary>
         void SeeUserProfile()
         {
             if (SelectedPatient != null)
@@ -106,7 +111,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// delete patient logic
         /// </summary>
         async void DeletePatient()
         {
