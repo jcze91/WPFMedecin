@@ -13,28 +13,29 @@ using System.Windows.Input;
 namespace mouham_cWpfMedecin.ViewModel
 {
     /// <summary>
-    /// 
+    /// View model of Observation insertion view
     /// </summary>
     public class AddObservationViewModel : ModernViewModelBase
     {
         /// <summary>
-        /// 
+        ///  Navigation service
         /// </summary>
         private readonly IModernNavigationService _modernNavigationService;
 
         /// <summary>
-        /// 
+        /// Observations Service WCF 
         /// </summary>
         private IServiceObservation _serviceObservation;
 
         /// <summary>
-        /// 
+        /// Selected patient
         /// </summary>
         public Patient Patient { get; private set; }
 
         private DateTime _selectedDate = DateTime.Now;
+
         /// <summary>
-        /// 
+        /// Selected date
         /// </summary>
         public DateTime SelectedDate
         {
@@ -44,7 +45,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _comment;
         /// <summary>
-        /// 
+        /// Comment on patient
         /// </summary>
         public string Comment
         {
@@ -54,7 +55,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private int _weight;
         /// <summary>
-        /// 
+        /// Patient weight
         /// </summary>
         public int Weight
         {
@@ -64,7 +65,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private int _bloodPressure;
         /// <summary>
-        /// 
+        /// Patient blood pressure
         /// </summary>
         public int BloodPressure
         {
@@ -74,7 +75,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _currentPrescription;
         /// <summary>
-        /// 
+        /// Current prescription in list
         /// </summary>
         public string CurrentPrescription
         {
@@ -84,7 +85,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private ObservableCollection<string> _prescriptions;
         /// <summary>
-        /// 
+        /// List of prescriptions
         /// </summary>
         public ObservableCollection<string> Prescriptions
         {
@@ -94,7 +95,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private ObservableCollection<Byte[]> _pictures;
         /// <summary>
-        /// 
+        /// List of pictures
         /// </summary>
         public ObservableCollection<Byte[]> Pictures
         {
@@ -104,7 +105,7 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private string _pictureFilename;
         /// <summary>
-        /// 
+        /// Picture filename
         /// </summary>
         public string PictureFilename
         {
@@ -114,30 +115,30 @@ namespace mouham_cWpfMedecin.ViewModel
 
         private readonly ICommand _addPrescriptionCommand;
         /// <summary>
-        /// 
+        /// Command to add prescription
         /// </summary>
         public ICommand AddPrescriptionCommand { get { return _addPrescriptionCommand; } }
 
         private readonly ICommand _browseCommand;
         /// <summary>
-        /// 
+        /// Command for browsing pictures
         /// </summary>
         public ICommand BrowseCommand { get { return _browseCommand; } }
 
         private readonly ICommand _addPictureCommand;
         /// <summary>
-        /// 
+        /// Command for adding picture
         /// </summary>
         public ICommand AddPictureCommand { get { return _addPictureCommand; } }
 
         private readonly ICommand _addObservationCommand;
         /// <summary>
-        /// 
+        /// Command to submit observation
         /// </summary>
         public ICommand AddObservationCommand { get { return _addObservationCommand; } }
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         /// <param name="modernNavigationService"></param>
         /// <param name="serviceObservation"></param>
@@ -157,17 +158,11 @@ namespace mouham_cWpfMedecin.ViewModel
             _addObservationCommand = new RelayCommand(AddObservation);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void LoadData()
         {
             Patient = _modernNavigationService.Parameter as Patient;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void AddPrescription()
         {
             if (!string.IsNullOrEmpty(CurrentPrescription))
@@ -178,7 +173,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// File picker method
         /// </summary>
         private void SelectFile()
         {
@@ -201,7 +196,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Add picture method
         /// </summary>
         private void AddPicture()
         {
@@ -221,7 +216,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Asynchronous method for adding observation
         /// </summary>
         async private void AddObservation()
         {
@@ -268,7 +263,7 @@ namespace mouham_cWpfMedecin.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Reset viewmodel
         /// </summary>
         public override void Cleanup()
         {
