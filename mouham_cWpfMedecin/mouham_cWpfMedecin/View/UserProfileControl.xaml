@@ -148,11 +148,6 @@
                                     <Button.Resources>
                                         <ElasticEase x:Key="easeOutBounce" EasingMode="EaseOut" Springiness="6" Oscillations="4" />
                                     </Button.Resources>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Click">
-                                            <i:InvokeCommandAction Command="{Binding OpenWideImageCommand}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
                                     <Button.Triggers>
                                         <EventTrigger RoutedEvent="Button.Click">
                                             <BeginStoryboard>

@@ -73,7 +73,6 @@ namespace mouham_cWpfMedecin.ViewModel
         /// 
         /// </summary>
         public ICommand AddObservationCommand { get; set; }
-        public ICommand OpenWideImageCommand { get; set; }
 
         /// <summary>
         /// 
@@ -94,7 +93,6 @@ namespace mouham_cWpfMedecin.ViewModel
             _servicePatient = servicePatient;
 
             AddObservationCommand = new RelayCommand(AddObservation);
-            OpenWideImageCommand = new RelayCommand(OpenWideImage);
             LoadedCommand = new RelayCommand(LoadData);
             _heartValues = new List<KeyValuePair<TimeSpan, double>>();
             HeartChart = new ObservableCollection<IPlotterElement>();
@@ -171,14 +169,6 @@ namespace mouham_cWpfMedecin.ViewModel
         private void AddObservation()
         {
             _modernNavigationService.NavigateTo(ViewModelLocator.AddObservationPageKey, Patient);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        void OpenWideImage()
-        {
-            throw new NotImplementedException();
         }
     }
 }
