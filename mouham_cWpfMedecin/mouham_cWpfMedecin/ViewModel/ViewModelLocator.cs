@@ -74,8 +74,7 @@ namespace mouham_cWpfMedecin.ViewModel
             SimpleIoc.Default.Register<IServiceUser>(() => serviceUser);
             SimpleIoc.Default.Register<IServiceObservation>(() => serviceObservation);
 
-            UserProfileViewModel userProfileViewModel = SimpleIoc.Default.GetInstance<UserProfileViewModel>();
-            var serviceLive = new ServiceLiveClient(new InstanceContext(userProfileViewModel), "WSDualHttpBinding_IServiceLive");
+            var serviceLive = new ServiceLiveClient(new InstanceContext(UserProfile), "WSDualHttpBinding_IServiceLive");
             serviceLive.Open();
             serviceLive.SubscribeAsync();
         }

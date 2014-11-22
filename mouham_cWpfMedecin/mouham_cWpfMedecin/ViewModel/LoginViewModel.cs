@@ -81,12 +81,14 @@ namespace mouham_cWpfMedecin.ViewModel
         /// 
         /// </summary>
         /// <param name="sessionService"></param>
+        /// <param name="serviceUser"></param>
         public LoginViewModel(ISessionService sessionService, IServiceUser serviceUser)
         {
             _sessionService = sessionService;
+            _serviceUser = serviceUser;
+
             Login = "";
             ErrorText = "";
-            _serviceUser = serviceUser;
             IsConnecting = false;
 
             LoginCommand = new RelayCommand(LoginExecute, CanLoginExecute);

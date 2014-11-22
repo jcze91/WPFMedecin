@@ -24,10 +24,5 @@ namespace mouham_cWpfMedecin.View
         {
             InitializeComponent();
         }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            Observations.SelectedIndex = 0;
-        }
     }
 }

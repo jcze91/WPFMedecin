@@ -10,7 +10,7 @@
              xmlns:view="clr-namespace:mouham_cWpfMedecin.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="1000"
-             DataContext="{Binding UserProfile, Source={StaticResource Locator}}" Loaded="UserControl_Loaded">
+             DataContext="{Binding UserProfile, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="NavigatedTo">
             <i:InvokeCommandAction Command="{Binding NavigatedToCommand}" />
@@ -56,13 +56,12 @@
                 </TextBlock.Text>
             </TextBlock>
             <DataGrid Name="Observations" AlternatingRowBackground="AliceBlue"  AutoGenerateColumns="False" 
-                              DataContext="{Binding Patient.Observations}"
-                              IsReadOnly="True" ItemsSource="{Binding}">
+                              IsReadOnly="True" ItemsSource="{Binding Patient.Observations}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Date}" Header="Date"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <mui:ModernButton  Content="ajouter une observation" Width="200"  Grid.Column="0" Grid.ColumnSpan="2" Height="28"
+            <mui:ModernButton  Content="ajouter une observation" Grid.Column="0" Grid.ColumnSpan="2"
                                Visibility="{Binding Role, Converter={StaticResource RoleToVisibility}}"
                                IconData="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z " HorizontalAlignment="Center">
                 <i:Interaction.Triggers>

@@ -29,6 +29,7 @@ namespace mouham_cWpfMedecin.ViewModel
         private readonly IModernNavigationService _modernNavigationService;
         private Patient _patient;
         private IServiceObservation _serviceObservation;
+        private IServicePatient _servicePatient;
         private string _heart;
         private double _temperature;
         private DateTime _startTime;
@@ -79,13 +80,19 @@ namespace mouham_cWpfMedecin.ViewModel
         /// </summary>
         /// <param name="modernNavigationService"></param>
         /// <param name="sessionService"></param>
-        public UserProfileViewModel(IModernNavigationService modernNavigationService, ISessionService sessionService,
-                                    IServiceObservation serviceObservation)
+        /// <param name="serviceObservation"></param>
+        public UserProfileViewModel(
+            IModernNavigationService modernNavigationService,
+            ISessionService sessionService,
+            IServiceObservation serviceObservation,
+            IServicePatient servicePatient)
         {
             this.Role = sessionService.Role;
 
             _modernNavigationService = modernNavigationService;
             _serviceObservation = serviceObservation;
+            _servicePatient = servicePatient;
+
             AddObservationCommand = new RelayCommand(AddObservation);
             OpenWideImageCommand = new RelayCommand(OpenWideImage);
             LoadedCommand = new RelayCommand(LoadData);
@@ -97,11 +104,15 @@ namespace mouham_cWpfMedecin.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        private void LoadData()
+        async private void LoadData()
         {
             try
             {
-                this.Patient = _modernNavigationService.Parameter as Patient;
+                var p = _modernNavigationService.Parameter as Patient;
+                if (p != null)
+                {
+                    Patient = await _servicePatient.GetPatientAsync(p.Id);
+                }
                 this.HeartChart.Clear();
                 _heartValues.Clear();
                 _canRefreshHeart = !_canRefreshHeart;

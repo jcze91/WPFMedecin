@@ -1,5 +1,6 @@
 ﻿using FirstFloor.ModernUI.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using mouham_cWpfMedecin.ServiceObservation;
 using mouham_cWpfMedecin.ServicePatient;
 using mouham_cWpfMedecin.Services;
@@ -135,11 +136,11 @@ namespace mouham_cWpfMedecin.ViewModel
         /// </summary>
         public ICommand AddObservationCommand { get { return _addObservationCommand; } }
 
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modernNavigationService"></param>
+        /// <param name="serviceObservation"></param>
         public AddObservationViewModel(IModernNavigationService modernNavigationService, IServiceObservation serviceObservation)
         {
             _modernNavigationService = modernNavigationService;
@@ -149,6 +150,7 @@ namespace mouham_cWpfMedecin.ViewModel
             _pictures = new ObservableCollection<byte[]>();
 
             LoadedCommand = new RelayCommand(LoadData);
+            NavigatedFromCommand = new RelayCommand(Cleanup);
             _browseCommand = new RelayCommand(SelectFile);
             _addPrescriptionCommand = new RelayCommand(AddPrescription);
             _addPictureCommand = new RelayCommand(AddPicture);
@@ -203,10 +205,7 @@ namespace mouham_cWpfMedecin.ViewModel
         /// </summary>
         private void AddPicture()
         {
-            try
-            {
-                Pictures.Add(System.IO.File.ReadAllBytes(PictureFilename));
-            }
+            try { Pictures.Add(System.IO.File.ReadAllBytes(PictureFilename)); }
             catch (Exception e)
             {
                 var dialog = new ModernDialog
@@ -218,10 +217,7 @@ namespace mouham_cWpfMedecin.ViewModel
                 dialog.Buttons = new Button[] { dialog.OkButton };
                 dialog.ShowDialog();
             }
-            finally
-            {
-                PictureFilename = string.Empty;
-            }
+            finally { PictureFilename = string.Empty; }
         }
 
         /// <summary>
@@ -271,10 +267,18 @@ namespace mouham_cWpfMedecin.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Cleanup()
         {
             base.Cleanup();
-        }
 
+            BloodPressure = 0;
+            Comment = string.Empty;
+            Weight = 0;
+            Pictures.Clear();
+            Prescriptions.Clear();
+        }
     }
 }
